@@ -1,0 +1,49 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#define mainScreenSize [UIScreen mainScreen].bounds.size
+
+#define cellSpace 4.0f
+#define cellSize 70.0f
+//#define mapLocationY    220
+
+#define kEffectSoundEnable @"EffectSoundEnable"
+#define kBestScore          @"BestScore"
+
+#define kLeaderBoardNotification        @"leaderBoardNotification"
+#define kGuideNotification              @"guideNotification"
+#define kFeedbackNotification           @"feedbackNotification"
+#define kAboutNotification              @"aboutNotification"
+
+#define kPasswordManagementNotification @"passwordManagementNotification"
+#define kFunctionIntroduceNotification  @"functionIntroduceNotification"
+#define kVersionUpdateNotification      @"versionUpdateNotification"
+#define kAboutAlbumNotification        @"aboutAlbumNotification"
+
+#pragma mark - Album
+
+#define kAlbumSortType @"albumSortType"
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <CoreLocation/CoreLocation.h>
+
+#import"TooManager.h"
+#import "FileManager.h"
+#import "LKDBHelper.h"
+#import "LLLockViewController.h"
+#import "AppDelegate.h"
+#import "HUDManager.h"
+#import "GeocoderManager.h"
+#import "UIViewController+MMDrawerController.h"
+#endif
