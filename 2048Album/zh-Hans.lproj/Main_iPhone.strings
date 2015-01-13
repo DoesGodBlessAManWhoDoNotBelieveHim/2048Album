@@ -1,0 +1,105 @@
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "0YQ-kP-wGJ"; */
+"0YQ-kP-wGJ.title" = "返回";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "0pf-D8-lEf"; */
+"0pf-D8-lEf.title" = "返回";
+
+/* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "CJq-kR-GNo"; */
+"CJq-kR-GNo.normalTitle" = "重来";
+
+/* Class = "IBUILabel"; text = "Score"; ObjectID = "Dla-ov-zuw"; */
+"Dla-ov-zuw.text" = "得分";
+
+/* Class = "IBUIButton"; normalTitle = "当前密码设置"; ObjectID = "G3Q-6G-4Vh"; */
+"G3Q-6G-4Vh.normalTitle" = "当前密码设置";
+
+/* Class = "IBUIBarButtonItem"; title = "Edit"; ObjectID = "Hib-Az-ZCk"; */
+"Hib-Az-ZCk.title" = "编辑";
+
+/* Class = "IBUINavigationItem"; title = "共0张图片"; ObjectID = "LDK-ic-2HV"; */
+"LDK-ic-2HV.title" = "共0张图片";
+
+/* Class = "IBUIButton"; normalTitle = "effect"; ObjectID = "MN2-sf-W2M"; */
+"MN2-sf-W2M.normalTitle" = "effect";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "OLu-AT-Wcb"; */
+"OLu-AT-Wcb.text" = "Label";
+
+/* Class = "IBUITextView"; text = "2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss"; ObjectID = "QH2-DK-cnp"; */
+"QH2-DK-cnp.text" = "这是中文的关于八月份吧";
+
+/* Class = "IBUIBarButtonItem"; title = "Menu"; ObjectID = "Tgb-Yt-S1n"; */
+"Tgb-Yt-S1n.title" = "菜单栏";
+
+/* Class = "IBUILabel"; text = "0"; ObjectID = "VCS-lv-o8H"; */
+"VCS-lv-o8H.text" = "0";
+
+/* Class = "IBUINavigationItem"; title = "密码管理"; ObjectID = "VPz-f0-avA"; */
+"VPz-f0-avA.title" = "密码管理";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "WOY-dD-3Oe"; */
+"WOY-dD-3Oe.title" = "返回";
+
+/* Class = "IBUILabel"; text = "0"; ObjectID = "XBI-9o-U9H"; */
+"XBI-9o-U9H.text" = "0";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "XNw-ar-Rxo"; */
+"XNw-ar-Rxo.title" = "返回";
+
+/* Class = "IBUIButton"; normalTitle = "Close"; ObjectID = "XXM-yG-rxc"; */
+"XXM-yG-rxc.normalTitle" = "关闭";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "aIQ-ZF-lRs"; */
+"aIQ-ZF-lRs.title" = "返回";
+
+/* Class = "IBUIButton"; normalTitle = "Menu"; ObjectID = "c6v-Ub-UKs"; */
+"c6v-Ub-UKs.normalTitle" = "菜单栏";
+
+/* Class = "IBUILabel"; text = "Join the numbers and get to the 2048!"; ObjectID = "e7u-Wo-d88"; */
+"e7u-Wo-d88.text" = "合并数字得到‘2048’!";
+
+/* Class = "IBUILabel"; text = "About"; ObjectID = "f47-tD-3hT"; */
+"f47-tD-3hT.text" = "关于";
+
+/* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "fB3-Hf-ARu"; */
+"fB3-Hf-ARu.title" = "返回";
+
+/* Class = "IBUINavigationItem"; title = "版本更新"; ObjectID = "fN7-fe-xed"; */
+"fN7-fe-xed.title" = "版本更新";
+
+/* Class = "IBUILabel"; text = "4"; ObjectID = "gOA-kT-34h"; */
+"gOA-kT-34h.text" = "4";
+
+/* Class = "IBUINavigationItem"; title = "关于"; ObjectID = "gnP-Tq-ZzT"; */
+"gnP-Tq-ZzT.title" = "关于";
+
+/* Class = "IBUINavigationItem"; title = "Menu"; ObjectID = "i3Z-FI-uaq"; */
+"i3Z-FI-uaq.title" = "菜单栏";
+
+/* Class = "IBUISegmentedControl"; kjq-sH-bOc.segmentTitles[0] = "照片"; ObjectID = "kjq-sH-bOc"; */
+"kjq-sH-bOc.segmentTitles[0]" = "照片";
+
+/* Class = "IBUISegmentedControl"; kjq-sH-bOc.segmentTitles[1] = "视频"; ObjectID = "kjq-sH-bOc"; */
+"kjq-sH-bOc.segmentTitles[1]" = "视频";
+
+/* Class = "IBUIButton"; normalTitle = "伪密码设置"; ObjectID = "raR-1d-XYq"; */
+"raR-1d-XYq.normalTitle" = "伪密码设置";
+
+/* Class = "IBUILabel"; text = "2"; ObjectID = "rmN-F6-FIp"; */
+"rmN-F6-FIp.text" = "2";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "s53-8V-g7J"; */
+"s53-8V-g7J.text" = "Label";
+
+/* Class = "IBUINavigationItem"; title = "功能介绍"; ObjectID = "u7i-lZ-eK5"; */
+"u7i-lZ-eK5.title" = "功能介绍";
+
+/* Class = "IBUILabel"; text = "8"; ObjectID = "uBs-1J-A7O"; */
+"uBs-1J-A7O.text" = "8";
+
+/* Class = "IBUILabel"; text = "Best"; ObjectID = "uF1-hR-Ykk"; */
+"uF1-hR-Ykk.text" = "最高";
+
+/* Class = "IBUILabel"; text = "0"; ObjectID = "zar-KU-ntr"; */
+"zar-KU-ntr.text" = "0";

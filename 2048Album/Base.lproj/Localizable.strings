@@ -1,0 +1,53 @@
+/* 
+  Localizable.strings
+  2048Album
+
+  Created by Jzhang on 15-1-13.
+  Copyright (c) 2015年 hket.com. All rights reserved.
+*/
+"FontName"="Marker Felt";
+"Back" = "Back";
+
+
+/*                          Game                    */
+/*        Menu            */
+"Leader Board" = "Leader Board";
+"GameGuide" = "Guide";
+"GameFeedBack" = "FeedBack";
+"GameAbout" =   "About";
+
+/*        ViewController     */
+
+"Menu"      = "Menu";
+"Reset"     = "Reset";
+"Effect On" = "Effect On";
+"Effect Off"= "Effect Off";
+
+"GameTips"  = "Join the numbers and get to the 2048!";
+
+/*        Leader Board     */
+"LeaderBoardTitle" = "Only the best five records saved";
+"No.1" = "No.1";
+"No.2" = "No.2";
+"No.3" = "No.3";
+"No.4" = "No.4";
+"No.5" = "No.5";
+
+
+"SwipToMoveAllLabels" = "Swip to move all labels";
+"SameNumberMerge" = "Two labels with the same number can be merged into a bigger one";
+"FailedWhenFilledWithLabels" = "Game over when board filled up...";
+"WinWith2048" = "When you get 2048,you win!";
+
+
+/*        About     */
+"GameAboutContent" = "";
+
+
+/******************************** Album *****************************/
+
+/*   Thumnail  */
+"PhotosAmount" = "photos";/*共_张图片*/
+"VideosAmount" = "videos";
+
+"Export" = "Export";
