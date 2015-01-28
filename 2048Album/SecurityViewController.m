@@ -9,6 +9,8 @@
 #import "SecurityViewController.h"
 #import "PasswordInfo.h"
 
+#import "SecurityQuestionManagementViewController.h"
+
 @interface SecurityViewController ()<LLLockDelegate,FileManagerDelegate>{
     int nRetryTimesRemain; // 剩余几次输入机会
     
@@ -43,10 +45,19 @@
     return self;
 }
 
+- (IBAction)buttomButtonAction:(id)sender {
+    if ([buttomButton.titleLabel.text isEqualToString:NSLocalizedString(@"ForgotPassword", nil)]) {
+        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        SecurityQuestionManagementViewController *securityQuestion = [appDelegate.storyBoard instantiateViewControllerWithIdentifier:@"SecurityQuestionManagementViewController"];
+        securityQuestion.securityType = ForgetPassword;
+        [self.navigationController pushViewController:securityQuestion animated:YES];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"手势密码设置";
+    self.title = NSLocalizedString(@"GesturePassword", nil);
     if (mainScreenSize.height>480){
         tipLabelTopSpaceToIndicator.constant = 15;
         buttomButtonTopSpaceToLockView.constant = 10;
@@ -66,24 +77,25 @@
         else{
             currentPasswordInfo = [globalHelper searchSingle:[PasswordInfo class] where:@"isMainPassword='0'" orderBy:nil];
         }
-        tipLabel.text = @"请先输入登陆密码";
+        tipLabel.text = NSLocalizedString(@"Please_input_login_password_first", nil);
         [buttomButton setTitle:@"" forState:UIControlStateNormal];
         buttomButton.enabled = NO;
     }
     else{// 登陆
         savedPasswords = [globalHelper search:[PasswordInfo class] column:nil where:nil orderBy:nil offset:0 count:0];
-        tipLabel.text = @"请输入正确登陆密码";
-        [buttomButton setTitle:@"忘记密码" forState:UIControlStateNormal];
+        tipLabel.text =NSLocalizedString(@"Please_input_correct_password", nil);
+        [buttomButton setTitle:NSLocalizedString(@"ForgotPassword", nil) forState:UIControlStateNormal];
         [buttomButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     }
     nRetryTimesRemain = LockRetryTimes;
 }
 
 - (void)lockString:(NSString *)string{
+    [indicatorView setPasswordString:string];
     if (lockViewType == LockViewTypeLogin) {
         for (PasswordInfo *tempPassword in savedPasswords) {
             if ([string isEqualToString:tempPassword.password]) {
-                [tipLabel setText:@"密码正确"];
+                [tipLabel setText:NSLocalizedString(@"CorrectPassword", nil)];
                 [self.navigationController dismissViewControllerAnimated:NO completion:^{
                     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                     appDelegate.password = string;
@@ -98,7 +110,7 @@
             //没有次数了，这时应该消除密码，然后让用户进入密保问题选项。
         }
         else{
-            [tipLabel setText:[NSString stringWithFormat:@"密码输错，还可输入%i次",nRetryTimesRemain]];
+            [tipLabel setText:NSLocalizedString(@"WrongPassword", nil)];
         }
 
     }
@@ -106,11 +118,11 @@
         if (!newPassword) {//修改状态，首次登陆
             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
             if ([string isEqualToString:appDelegate.password]) {//密码正确，可以修改了
-                [tipLabel setText:@"请输入新的密码"];
+                [tipLabel setText:NSLocalizedString(@"Input_a_new_password", nil)];
                 newPassword = @"";
             }
             else{
-                [tipLabel setText:@"当前密码输入错误，请重新输入"];
+                [tipLabel setText:NSLocalizedString(@"Password_Error_Input_New_One", nil)];
             }
             
         }
@@ -118,10 +130,10 @@
             if (string.length>=4) {
                 //confirm = YES;
                 newPassword = string;
-                [tipLabel setText:@"请再次绘制确认"];
+                [tipLabel setText:NSLocalizedString(@"Draw_Again_Ensure", nil)];
             }
             else{
-                [tipLabel setText:@"密码不正确，长度不小于4,请重绘"];
+                [tipLabel setText:NSLocalizedString(@"Try_again_4_numbers_at_least", nil)];
             }
         }
         else{
@@ -132,13 +144,13 @@
                 }
                 else{
                     newPassword = @"";
-                    [tipLabel setText:@"两次绘制不一致，请重绘！"];
+                    [tipLabel setText:NSLocalizedString(@"Not_The_Same", nil)];
                     //confirm = NO;
                 }
             }
             else{
                 newPassword = @"";
-                [tipLabel setText:@"密码不正确，长度不小于4,请重绘"];
+                [tipLabel setText:NSLocalizedString(@"Try_again_4_numbers_at_least", nil)];
             }
         }
        
@@ -161,7 +173,7 @@
         }
     }
     else{
-        [[[UIAlertView alloc]initWithTitle:@"failed to update password" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]show];
+        [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Modify_Password_Error", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]show];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

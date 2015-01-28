@@ -19,8 +19,9 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 
 #import <ImageIO/CGImageProperties.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ThumnailViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,CLLocationManagerDelegate,AGImagePickerControllerDelegate>{
+@interface ThumnailViewController ()<UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,CLLocationManagerDelegate,AGImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>{
     AGImagePickerController *ipc;
     
     UIBarButtonItem *editItem;
@@ -62,7 +63,7 @@
     // Do any additional setup after loading the view.
     addPhotos = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPhotos)];
     editItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editAction:)];
-    exportItem = [[UIBarButtonItem alloc]initWithTitle:@"导出" style:UIBarButtonItemStylePlain target:self action:@selector(exportPhotosToLocalAlbum:)];
+    exportItem = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Export", nil) style:UIBarButtonItemStylePlain target:self action:@selector(exportPhotosToLocalAlbum:)];
     doneItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction:)];
     deleteItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deletePhotos:)];
     flexibleSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -195,7 +196,7 @@
             }
         }
         
-        int row = didSelectItem.item;
+        NSInteger row = didSelectItem.item;
         for (int i = 0; i < didSelectItem.section; i++) {
             row += [nums[i] integerValue];
         }
@@ -213,72 +214,14 @@
         [tempsArray removeAllObjects];
         tempsArray = nil;
     }
-    /*
-    else{
-        if ([segue.identifier isEqualToString:@"moviePlay"]) {
-            MoviePlayerViewController *destinationViewController = segue.destinationViewController;
-            //destinationViewController.album = album;
-            VideoInfo *video = videosArray[didSelectItem.section][didSelectItem.item];
-            destinationViewController.path = video.path;
-
-        }
-    }*/
 }
 
 #pragma mark - AGImagePicker
-/*
-- (void)prepareAGImagePicker{
-    
-    __block ThumnailViewController *blockSelf = self;
-    
-    //ipc = [[AGImagePickerController alloc] initWithDelegate:self];
-    // modified by springox(20140503)
-    ipc = [AGImagePickerController sharedInstance:self];
-    
-    ipc.didFailBlock = ^(NSError *error) {
-        blockSelf.canNotUpdate = YES;
-        NSLog(@"Fail. Error: %@", error);
-        if (error == nil) {
-           // [blockSelf.pickerPhotos removeAllObjects];
-            NSLog(@"User has cancelled.");
-            
-            [blockSelf dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            
-            // We need to wait for the view controller to appear first.
-            double delayInSeconds = 0.5;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [blockSelf dismissViewControllerAnimated:YES completion:nil];
-            });
-        }
-        
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-        
-    };
-    ipc.didFinishBlock = ^(NSArray *info) {
-        blockSelf.canNotUpdate = YES;
-        [blockSelf dismissViewControllerAnimated:YES completion:nil];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[HUDManager shareHUDManager]showWithStatus:@"照片存储中..."];
-        });
-        
-        
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-            [[FileManager shareFileManager]savePhotos:info withPassword:appDelegate.password];
-            [FileManager shareFileManager].delegate = blockSelf;
-        });
-    };
-}
-*/
+
 - (void)pickImageWithType:(PickerType)type{
     AGImagePickerController *imagePicker = [[AGImagePickerController alloc]initWithDelegate:self failureBlock:^(NSError *error) {
         self.canNotUpdate = YES;
         if (error) {
-            NSLog(@"Error:%@",error);
             
         }
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -288,10 +231,10 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if (segmentControl.selectedSegmentIndex==0) {
-                [[HUDManager shareHUDManager]showWithStatus:@"照片存储中..."];
+                [[HUDManager shareHUDManager]showWithStatus:NSLocalizedString(@"PhotosSaving", nil)];
             }
             else{
-                [[HUDManager shareHUDManager]showWithStatus:@"视屏存储中..."];
+                [[HUDManager shareHUDManager]showWithStatus:NSLocalizedString(@"VideosSaving", nil)];
             }
             
         });
@@ -308,7 +251,6 @@
                 [[FileManager shareFileManager]saveVideos:info withPassword:appDelegate.password];
             }
             
-            
         });
         
         } maximumNumberOfPhotosToBeSelected:50 shouldChangeStatusBarStyle:YES toolbarItemsForManagingTheSelection:nil andShouldShowSavedPhotosOnTop:NO];
@@ -316,37 +258,18 @@
     imagePicker.pickerType = type;
     
     [self presentViewController:imagePicker animated:YES completion:nil];
-    /*
-    // Show saved photos on top
-    ipc.shouldShowSavedPhotosOnTop = NO;
-    ipc.shouldChangeStatusBarStyle = YES;
-    //ipc.selection = self.pickerPhotos;
-    ipc.maximumNumberOfPhotosToBeSelected = 100;
-    
-    // Custom toolbar items
-    AGIPCToolbarItem *selectAll = [[AGIPCToolbarItem alloc] initWithBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"+ Select All" style:UIBarButtonItemStyleBordered target:nil action:nil] andSelectionBlock:^BOOL(NSUInteger index, ALAsset *asset) {
-        return YES;
-    }];
-    AGIPCToolbarItem *flexible = [[AGIPCToolbarItem alloc] initWithBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] andSelectionBlock:nil];
-    AGIPCToolbarItem *selectOdd = [[AGIPCToolbarItem alloc] initWithBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"+ Select Odd" style:UIBarButtonItemStyleBordered target:nil action:nil] andSelectionBlock:^BOOL(NSUInteger index, ALAsset *asset) {
-        return !(index % 2);
-    }];
-    AGIPCToolbarItem *deselectAll = [[AGIPCToolbarItem alloc] initWithBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"- Deselect All" style:UIBarButtonItemStyleBordered target:nil action:nil] andSelectionBlock:^BOOL(NSUInteger index, ALAsset *asset) {
-        return NO;
-    }];
-    ipc.toolbarItemsForManagingTheSelection = @[selectAll, flexible, selectOdd, flexible, deselectAll];
-    
-    [self presentViewController:ipc animated:YES completion:nil];
-    
-    // modified by springox(20140503)
-    [ipc showFirstAssetsController];
-     */
 }
 
+- (void)agImagePickerController:(AGImagePickerController *)picker didFail:(NSError *)error{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)agImagePickerController:(AGImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)pickImageByCameraWithType:(PickerType)type{
     /* start location*/
-    NSLog(@"didUpdateLocations");
     [self.locationManager startUpdatingLocation];
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
         [_locationManager requestWhenInUseAuthorization];
@@ -374,73 +297,61 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-
     
-    //元数据
-    UIImage *orginImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    NSDictionary *dict = [info objectForKey:UIImagePickerControllerMediaMetadata];
-    NSMutableDictionary *metadata=[NSMutableDictionary dictionaryWithDictionary:dict];
-    //EXIF数据
-    NSMutableDictionary *EXIFDictionary =[[metadata objectForKey:(NSString *)kCGImagePropertyExifDictionary]mutableCopy];
-    if(!EXIFDictionary) {
-        EXIFDictionary = [NSMutableDictionary dictionary];
-        [EXIFDictionary setValue:@"xml_user_comment" forKey:(NSString *)kCGImagePropertyExifUserComment];
-        [metadata setObject:EXIFDictionary forKey:(NSString *)kCGImagePropertyExifDictionary];
-    }
-    //GPS数据
-    CLLocation * location = nil;
-    NSMutableDictionary *GPSDictionary = [[metadata objectForKey:(NSString *)kCGImagePropertyGPSDictionary]mutableCopy];
-    NSLog(@"GPSDictionary:%@",GPSDictionary);
-    if(!GPSDictionary) {
-        location = self.locationManager.location;
-        NSLog(@"%f,%f",(float)location.coordinate.latitude,(float)location.coordinate.latitude);
-        /*
-        NSTimeZone    *timeZone   = [NSTimeZone timeZoneWithName:@"UTC"];
-        NSDateFormatter *formatter  = [[NSDateFormatter alloc] init];
-        [formatter setTimeZone:timeZone];
-        [formatter setDateFormat:@"HH:mm:ss.SS"];
-        
-        NSDictionary *gpsDict   = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [NSNumber numberWithFloat:fabs(location.coordinate.latitude)], kCGImagePropertyGPSLatitude,
-                                   ((location.coordinate.latitude >= 0) ? @"N" : @"S"), kCGImagePropertyGPSLatitudeRef,
-                                   [NSNumber numberWithFloat:fabs(location.coordinate.longitude)], kCGImagePropertyGPSLongitude,
-                                   ((location.coordinate.longitude >= 0) ? @"E" : @"W"), kCGImagePropertyGPSLongitudeRef,
-                                   [formatter stringFromDate:[location timestamp]], kCGImagePropertyGPSTimeStamp,
-                                   nil];
-        if (info && [info objectForKey:UIImagePickerControllerMediaMetadata] && gpsDict) {
-             [[info objectForKey:UIImagePickerControllerMediaMetadata] setValue:gpsDict forKey:(NSString*)kCGImagePropertyGPSDictionary];
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            ALAssetsLibraryWriteImageCompletionBlock imageWriteCompletionBlock =
-            ^(NSURL *newURL, NSError *error) {
-                if (error) {
-                    NSLog( @"Error writing image with metadata to Photo Library: %@", error );
-                } else {
-                    NSLog( @"Wrote image with metadata to Photo Library");
+    UIImage *origin =[info objectForKey:UIImagePickerControllerOriginalImage];
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc]init];
+    NSDictionary *metadata = [info objectForKey:UIImagePickerControllerMediaMetadata];
+    [library writeImageToSavedPhotosAlbum:[origin CGImage] metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        if (!error) {
+            [library assetForURL:assetURL resultBlock:^(ALAsset *asset) {
+                PhotoInfo *photo = [[PhotoInfo alloc]init];
+                ALAssetRepresentation *rep = [asset defaultRepresentation];
+                photo.name = [rep filename];
+                photo.date = [TooManager stringFromDate:[asset valueForProperty:ALAssetPropertyDate]];
+                //image
+                UIImageOrientation orientation = (UIImageOrientation)[rep orientation];
+                //CGImageRef orginImageRef = nil;
+                photo.image = [UIImage imageWithCGImage:[rep fullResolutionImage] scale:1.0f orientation:orientation];
+                photo.thumnailImage = [UIImage imageWithCGImage:asset.thumbnail];
+                CLLocation* wgs84Location = [asset valueForProperty:ALAssetPropertyLocation];
+                if (wgs84Location) {//判断是否在拍照时有开启定位，只有在开启了定位才能得到地理信息
+                    //纬度
+                    photo.latitude = [NSString stringWithFormat:@"%f",wgs84Location.coordinate.latitude];
+                    //经度
+                    photo.longitude = [NSString stringWithFormat:@"%f",wgs84Location.coordinate.longitude];
+                    //海拔
+                    photo.altitude = [NSString stringWithFormat:@"%f",wgs84Location.horizontalAccuracy];
                 }
-            };
-            
-            //保存相片到相册 注意:必须使用[image CGImage]不能使用强制转换: (__bridge CGImageRef)image,否则保存照片将会报错
-            [library writeImageToSavedPhotosAlbum:[orginImage CGImage]
-                                         metadata:metadata
-                                  completionBlock:imageWriteCompletionBlock];
-        }*/
-    }
-    else{
-        location = [[CLLocation alloc]initWithLatitude:[[GPSDictionary objectForKey:(NSString*)kCGImagePropertyGPSLatitude] doubleValue] longitude:[[GPSDictionary objectForKey:(NSString*)kCGImagePropertyGPSLongitude] doubleValue]];
-    }
-
+                else{
+                    photo.latitude = [NSString stringWithFormat:@"%f",self.locationManager.location.coordinate.latitude];
+                    photo.longitude = [NSString stringWithFormat:@"%f",self.locationManager.location.coordinate.longitude];
+                }
+                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                [FileManager shareFileManager].delegate = self;
+                [[FileManager shareFileManager] savePhoto:photo withPassword:delegate.password];
+                
+            } failureBlock:^(NSError *error) {
+                
+            }];
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"%@:%@",NSLocalizedString(@"FailedToSavePhotoToPhone", nil),[error description]]];
+            });
+        }
+    }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - CLLocationManager Delegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    CLLocation * currLocation = [locations lastObject];
-    NSLog(@"didUpdateLocations");
-    NSLog(@"%f,%f",(float)currLocation.coordinate.latitude,(float)currLocation.coordinate.latitude);
+    //CLLocation * currLocation = [locations lastObject];
+    //NSLog(@"didUpdateLocations");
+    //NSLog(@"%f,%f",(float)currLocation.coordinate.latitude,(float)currLocation.coordinate.longitude);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    NSLog(@"locationManager didFailWithError");
+    //NSLog(@"locationManager didFailWithError");
 }
 
 #pragma UIBar Button Item
@@ -471,7 +382,7 @@
 
 //添加图片
 - (void)addPhotos{
-    UIActionSheet *selectPhotosActionSheet = [[UIActionSheet alloc]initWithTitle:@"导入图片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从相册",@"从相机", nil];
+    UIActionSheet *selectPhotosActionSheet = [[UIActionSheet alloc]initWithTitle:NSLocalizedString(@"PhotosImport", nil)  delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"ImportFromAlbum", nil),NSLocalizedString(@"ImportFromCamera", nil), nil];
     selectPhotosActionSheet.tag = 1001;
     [selectPhotosActionSheet showInView:self.view];
 }
@@ -480,10 +391,10 @@
 - (void)exportPhotosToLocalAlbum:(id)sender{
     NSString *title = nil;
     if (segmentControl.selectedSegmentIndex == 0) {
-        title = @"将图片导出到本地相册中?";
+        title = NSLocalizedString(@"To_export_photos_to_the_local_album", nil);
     }
     else{
-        title = @"将视频导出到本地相册中?";
+        title = NSLocalizedString(@"To_export_videos_to_the_local_album", nil) ;
     }
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"OK", nil];
     actionSheet.tag = 1002;
@@ -495,12 +406,12 @@
 - (void)deletePhotos:(id)sender{
     NSString *title = nil;
     if (segmentControl.selectedSegmentIndex == 0) {
-        title = @"删除所选中的图片?";
+        title = NSLocalizedString(@"Delete_the_selected_photos", nil);
     }
     else{
-        title = @"删除所选中的视频?";
+        title = NSLocalizedString(@"Delete_the_selected_videos", nil);
     }
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:nil, nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:nil, nil];
     actionSheet.tag = 1003;
     [actionSheet showFromBarButtonItem:deleteItem animated:YES];
 }
@@ -588,7 +499,7 @@
 
 #pragma mark - UICollectionView Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"(%li,%li)",(long)indexPath.section,(long)indexPath.row);
+    //NSLog(@"(%li,%li)",(long)indexPath.section,(long)indexPath.row);
     if (editable) {
         if ([self.selectedItemsArray containsObject:indexPath]) {
             [self.selectedItemsArray removeObject:indexPath];
@@ -623,8 +534,17 @@
     }
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath  {
+    if (mainScreenSize.width==414) {
+        return CGSizeMake(80, 80);
+    }
+    return CGSizeMake((mainScreenSize.width-6)/4.0, (mainScreenSize.width-6)/4.0);
+}
+
 
 #pragma mark - UIActionSheet Delegate
+
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (actionSheet.tag == 1001) {
         switch (buttonIndex) {
@@ -652,70 +572,75 @@
 
     }
     else if (actionSheet.tag == 1002){
-        if (segmentControl.selectedSegmentIndex == 0) {
-            [[HUDManager shareHUDManager]showWithStatus:[NSString stringWithFormat:@"%lu张图片导出中\n请耐心等待...",(unsigned long)self.selectedItemsArray.count]];
-        }
-        else{
-            [[HUDManager shareHUDManager]showWithStatus:[NSString stringWithFormat:@"%lu个视频导出中\n请耐心等待...",(unsigned long)self.selectedItemsArray.count]];
-        }
-        if (self.selectedItemsArray.count > 0) {
-            for (NSIndexPath *tempIndexPath in self.selectedItemsArray) {
-                @autoreleasepool {
-                    if (segmentControl.selectedSegmentIndex == 0) {
-                        PhotoInfo *photoInfo = photosArray[tempIndexPath.section][tempIndexPath.item];
-                        UIImage *imageToWrite = [UIImage imageWithContentsOfFile:photoInfo.imagePath];
-                        UIImageWriteToSavedPhotosAlbum(imageToWrite, self, nil, nil);
-                    }
-                    else{
-                        VideoInfo *videoInfo = videosArray[tempIndexPath.section][tempIndexPath.item];
-                        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoInfo.path)) {
-                            UISaveVideoAtPathToSavedPhotosAlbum(videoInfo.path, nil, nil, nil);
-                        }
-                    }
-                    
-                }
+        if (buttonIndex == 0) {
+            if (segmentControl.selectedSegmentIndex == 0) {
+                [[HUDManager shareHUDManager]showWithStatus:[NSString stringWithFormat:@"%lu%@...",(unsigned long)self.selectedItemsArray.count,NSLocalizedString(@"PhotosExporting", nil)]];
             }
-            [self.selectedItemsArray removeAllObjects];
-            [[HUDManager shareHUDManager]showSuccess:@"完成！\n请到本地相册查看"];
-            [contentCollectionView reloadData];
+            else{
+                [[HUDManager shareHUDManager]showWithStatus:[NSString stringWithFormat:@"%lu%@...",(unsigned long)self.selectedItemsArray.count,NSLocalizedString(@"VideosExporting", nil)]];
+            }
+            if (self.selectedItemsArray.count > 0) {
+                for (NSIndexPath *tempIndexPath in self.selectedItemsArray) {
+                    @autoreleasepool {
+                        if (segmentControl.selectedSegmentIndex == 0) {
+                            PhotoInfo *photoInfo = photosArray[tempIndexPath.section][tempIndexPath.item];
+                            UIImage *imageToWrite = [UIImage imageWithContentsOfFile:photoInfo.imagePath];
+                            UIImageWriteToSavedPhotosAlbum(imageToWrite, self, nil, nil);
+                        }
+                        else{
+                            VideoInfo *videoInfo = videosArray[tempIndexPath.section][tempIndexPath.item];
+                            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoInfo.path)) {
+                                UISaveVideoAtPathToSavedPhotosAlbum(videoInfo.path, nil, nil, nil);
+                            }
+                        }
+                        
+                    }
+                }
+                [self.selectedItemsArray removeAllObjects];
+                [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@\n%@",NSLocalizedString(@"Done", nil),NSLocalizedString(@"CheckInLocalAlbum", nil)]];
+                [contentCollectionView reloadData];
+            }
+
         }
     }
     else if (actionSheet.tag == 1003){
-        if (self.selectedItemsArray.count > 0) {
-            NSMutableArray *toDeleteArray = [NSMutableArray array];
-            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            if (segmentControl.selectedSegmentIndex == 0) {
-                for (NSIndexPath *tempIndexPath in self.selectedItemsArray) {
-                    PhotoInfo *photoInfo = photosArray[tempIndexPath.section][tempIndexPath.item];
-                    if (photoInfo) {
-                        [toDeleteArray addObject:photoInfo];
+        if (buttonIndex == 0) {
+            if (self.selectedItemsArray.count > 0) {
+                NSMutableArray *toDeleteArray = [NSMutableArray array];
+                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                if (segmentControl.selectedSegmentIndex == 0) {
+                    for (NSIndexPath *tempIndexPath in self.selectedItemsArray) {
+                        PhotoInfo *photoInfo = photosArray[tempIndexPath.section][tempIndexPath.item];
+                        if (photoInfo) {
+                            [toDeleteArray addObject:photoInfo];
+                        }
                     }
-                }
-                if (toDeleteArray.count>0) {
-                    [FileManager shareFileManager].delegate = self;
-                    [[FileManager shareFileManager]deletePhotosByPassword:appDelegate.password photos:toDeleteArray];
-                }
-                
-            }
-            else{
-                for (NSIndexPath *tempIndexPath in self.selectedItemsArray) {
-                    VideoInfo *videoInfo = videosArray[tempIndexPath.section][tempIndexPath.item];
-                    if (videoInfo) {
-                        [toDeleteArray addObject:videoInfo];
+                    if (toDeleteArray.count>0) {
+                        [FileManager shareFileManager].delegate = self;
+                        [[FileManager shareFileManager]deletePhotosByPassword:appDelegate.password photos:toDeleteArray];
                     }
+                    
                 }
-                if (toDeleteArray.count>0) {
-                    [[FileManager shareFileManager]deleteVideos:toDeleteArray byPassword:appDelegate.password];
+                else{
+                    for (NSIndexPath *tempIndexPath in self.selectedItemsArray) {
+                        VideoInfo *videoInfo = videosArray[tempIndexPath.section][tempIndexPath.item];
+                        if (videoInfo) {
+                            [toDeleteArray addObject:videoInfo];
+                        }
+                    }
+                    if (toDeleteArray.count>0) {
+                        [[FileManager shareFileManager]deleteVideos:toDeleteArray byPassword:appDelegate.password];
+                    }
+                    
                 }
-                
+                [toDeleteArray removeAllObjects];
+                toDeleteArray = nil;
+                [self.selectedItemsArray removeAllObjects];
+                [self updateCollectionView];
             }
-            [toDeleteArray removeAllObjects];
-            toDeleteArray = nil;
-            [self.selectedItemsArray removeAllObjects];
-            [self updateCollectionView];
+            deleteItem.enabled = NO;
+            exportItem.enabled = NO;
         }
-        deleteItem.enabled = NO;
-        exportItem.enabled = NO;
     }
 }
 
@@ -725,10 +650,10 @@
     // show alert
     dispatch_async(dispatch_get_main_queue(), ^{
         if (successCount>0) {
-            [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"完成！\n共%i张图片，失败%li张",(successCount+failedCount),(long)failedCount]];
+            [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@！\n%li/%li %@",NSLocalizedString(@"Done", nil),(long)failedCount,(long)(successCount+failedCount),NSLocalizedString(@"photosFailed", nil)]];
         }
         else{
-            [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"完成！\n共%i张图片，失败%li张",(successCount+failedCount),(long)failedCount]];
+            [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"%@！\n%li/%li %@",NSLocalizedString(@"Done", nil),(long)failedCount,(long)(successCount+failedCount),NSLocalizedString(@"photosFailed", nil)]];
         }
     });
     
@@ -738,10 +663,10 @@
 - (void)handleDeletePhotoWithPasswordSuccessCount:(NSInteger)successCount failedCount:(NSInteger)failedCount{
     dispatch_async(dispatch_get_main_queue(), ^{
         if (successCount>0) {
-            [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"完成！\n共%i张图片，失败%li张",(successCount+failedCount),(long)failedCount]];
+            [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@！\n%li/%li %@",NSLocalizedString(@"Done", nil),(long)failedCount,(long)(successCount+failedCount),NSLocalizedString(@"photosFailed", nil)]];
         }
         else{
-            [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"完成！\n共%i张图片，失败%li张",(successCount+failedCount),(long)failedCount]];
+            [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"%@！\n%li/%li %@",NSLocalizedString(@"Done", nil),(long)failedCount,(long)(successCount+failedCount),NSLocalizedString(@"photosFailed", nil)]];
         }
     });
 
@@ -763,7 +688,7 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.title = [NSString stringWithFormat:@"共%i张图片",count];
+        self.title = [NSString stringWithFormat:NSLocalizedString(@"", nil),count];
         [self.contentCollectionView reloadData];
     });
 }
@@ -773,10 +698,10 @@
     // show alert
     dispatch_async(dispatch_get_main_queue(), ^{
         if (successCount>0) {
-            [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"完成！\n共%i个视频文件，失败%li张",(successCount+failedCount),(long)failedCount]];
+            [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@！\n%li/%li %@",NSLocalizedString(@"Done", nil),(long)failedCount,(long)(successCount+failedCount),NSLocalizedString(@"videosFailed", nil)]];
         }
         else{
-            [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"完成！\n共%i个视频文件，失败%li张",(successCount+failedCount),(long)failedCount]];
+            [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"%@！\n%li/%li %@",NSLocalizedString(@"Done", nil),(long)failedCount,(long)(successCount+failedCount),NSLocalizedString(@"videosFailed", nil)]];
         }
     });
     
@@ -794,7 +719,7 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.title = [NSString stringWithFormat:@"共%i个视频",count];
+        self.title = [NSString stringWithFormat:NSLocalizedString(@"TotalVideos", nil),count];
         [self.contentCollectionView reloadData];
     });
 }
@@ -802,15 +727,29 @@
 - (void)handleDeleteVideosWithPasswordSuccessCount:(NSInteger)successCount failedCount:(NSInteger)failedCount{
     dispatch_async(dispatch_get_main_queue(), ^{
         if (successCount>0) {
-            [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"完成！\n共%i个视频，失败%li个",(successCount+failedCount),(long)failedCount]];
+            [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@！\n%li/%li %@",NSLocalizedString(@"Done", nil),(long)failedCount,(long)(successCount+failedCount),NSLocalizedString(@"videosFailed", nil)]];
         }
         else{
-            [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"完成！\n共%i个视频，失败%li个",(successCount+failedCount),(long)failedCount]];
+            [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"%@！\n%li/%li %@",NSLocalizedString(@"Done", nil),(long)failedCount,(long)(successCount+failedCount),NSLocalizedString(@"videosFailed", nil)]];
         }
     });
     
     [self updateCollectionView];
 
+}
+
+- (void)handleCreateANewPhoto:(PhotoInfo *)photoInfo success:(BOOL)success alreadyExist:(BOOL)exist{
+    if (success) {
+        [self updateCollectionView];
+    }
+    else{
+        if (exist) {
+            [[HUDManager shareHUDManager]showError:NSLocalizedString(@"ExistingPhotos", nil)];
+        }
+        else{
+            [[HUDManager shareHUDManager]showError:NSLocalizedString(@"SavingPhotosError", nil)];
+        }
+    }
 }
 
 @end

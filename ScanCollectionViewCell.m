@@ -18,7 +18,7 @@
         scrollView.minimumZoomScale = 1.0f;
         scrollView.delegate = self;
         
-        imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 0, 310, self.bounds.size.height)];
+        imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 0, mainScreenSize.width-10, self.bounds.size.height)];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         
         [self.contentView addSubview:scrollView];

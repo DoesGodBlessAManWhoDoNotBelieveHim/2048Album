@@ -1,7 +1,114 @@
-/* 
-  Localizable.strings
-  2048Album
+/*
+ Localizable.strings
+ 2048Album
+ 
+ Created by Jzhang on 15-1-13.
+ Copyright (c) 2015年 hket.com. All rights reserved.
+ */
+/*
+ Localizable.strings
+ 2048Album
+ 
+ Created by Jzhang on 15-1-13.
+ Copyright (c) 2015年 hket.com. All rights reserved.
+ */
+"FontName"="Marker Felt";
+"Back" = "返回";
+"Delete" = "删除";
+"Cancel" = "取消";
+"Done" = "完成";
+"Failed" = "失败";
 
-  Created by Jzhang on 15-1-13.
-  Copyright (c) 2015年 hket.com. All rights reserved.
-*/
+/*                          Game                    */
+/*        Menu            */
+"LeaderBoard" = "得分排行";
+"Guide" = "指南";
+"FeedBack" = "回馈";
+"About" =   "关于";
+
+/*        ViewController     */
+
+"Menu"      = "菜单";
+"Reset"     = "重置";
+"EffectOn" = "音效开";
+"EffectOff"= "音效关";
+
+"GameTips"  = "将相同数字合并以得到2048!";
+
+/*        Leader Board     */
+"LeaderBoardTitle" = "只存储前五记录";
+"No.1" = "最高:";
+"No.2" = "第二:";
+"No.3" = "第三:";
+"No.4" = "第四:";
+"No.5" = "第五:";
+
+
+"SwipToMoveAllLabels" = "用后滑动来移动数字标签";
+"SameNumberMerge" = "相同的数字可以相加合并";
+"FailedWhenFilledWithLabels" = "当格子填满同时无可合并数字，游戏就会结束";
+"WinWith2048" = "当你得到2048，你就取得了胜利!";
+
+
+/*        About     */
+"GameAboutContent" = "游戏的关于内容";
+
+
+/******************************** Album *****************************/
+
+/* Security */
+"GesturePassword" = "手势密码";
+"ForgotPassword" = "忘记密码";
+"Please_input_login_password_first"="请先滑动绘制登陆密码!";
+"Please_input_correct_password" = "请绘制正确密码";
+"CorrectPassword" = "密码正确";
+"WrongPassword" = "密码错误";
+"Input_a_new_password"="请绘制新的密码";
+"Password_Error_Input_New_One"="密码错误，请重新绘制!";
+"Draw_Again_Ensure" = "再次绘制确认密码!";
+"Try_again_4_numbers_at_least"="请重新绘制，密码长度不小于4!";
+"Not_The_Same" = "请重绘!两次绘制密码不一致!";
+"Modify_Password_Error" = "密码修改失败";
+/*   Thumnail  */
+"PhotosAmount" = "张照片";/*共_张图片*/
+"VideosAmount" = "个视频";
+
+"Export" = "导出";
+"PhotosSaving" = "照片存储中...";
+"VideosSaving" = "视频存储中...";
+"FailedToSavePhotoToPhone" = "照片存入手机相册失败";
+"PhotosImport" = "照片导入";
+"ImportFromAlbum" = "从相册中导入";
+"ImportFromCamera" = "从相机导入";
+"To_export_photos_to_the_local_album" = "将照片导出到手机相册?";
+"To_export_videos_to_the_local_album" = "将视频导出到手机相册?";
+"Delete_the_selected_photos" = "删除选中照片";
+"Delete_the_selected_videos" = "删除选中视频";
+
+"PhotosExporting" = "照片导出中...";
+"VideosExporting" = "视频导出中...";
+"CheckInLocalAlbum" = "请到手机相册中查看!";
+"photosFailed" = "张照片失败!";
+"videosFailed" = "个视频失败!";
+"TotalPhotos" = "共: %i 张照片";//总共%i张图片
+"TotalVideos" = "共: %i 个视频";//总共%i张视频
+
+"ExistingPhotos" = "照片已存在";//该照片已存在
+"ExistingVideos" = "视频已存在";//该视频已存在
+
+"SavingPhotosError" = "照片存储失败";//照片存储失败
+"SavingVideosError" = "视频存储失败";//视频存储失败
+
+"DeleteCurrentPhoto" = "删除当前照片";
+"DeleteCurrentVideo" = "删除当前视频";
+
+
+"Please_Input_Security_Question_Here"="请输入密保问题";
+"Please_Input_Security_Answer_Here"="请输入密码答案";
+"Please_Input_The_Second_Security_Answer_Here"="请输入第二个密保答案";
+/*MenuTableViewController*/
+
+"SecuritySettings" = "安全设置";
+"Rate" = "评价";
+"CheckVersion" = "版本更新";
+"BackToGame" = "返回游戏";

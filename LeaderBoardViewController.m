@@ -42,48 +42,48 @@
 {
     [super viewDidLoad];
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    self.title = @"只保存前五项纪录";
+    self.title = NSLocalizedString(@"LeaderBoardTitle", nil);
     // Do any additional setup after loading the view.
     FileManager *shareFileManager = [FileManager shareFileManager];
     scoreImages = [shareFileManager selectAllScoreImages];
     
     scoreScrollView.scrollEnabled = YES;
     scoreScrollView.pagingEnabled = YES;
-    scoreScrollView.contentSize = CGSizeMake(scoreScrollView.frame.size.width * scoreImages.count, scoreScrollView.frame.size.height-64);
+    scoreScrollView.contentSize = CGSizeMake(mainScreenSize.width * scoreImages.count, mainScreenSize.height-64);
     if (scoreImages && scoreImages.count > 0) {
         for (int i = 0; i < scoreImages.count; i ++) {
-            UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, scoreScrollView.bounds.size.width, scoreScrollView.bounds.size.height)];
+            UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainScreenSize.width, mainScreenSize.height)];
             [scoreScrollView addSubview:contentView];
             BestFiveImage *bestImage = [scoreImages objectAtIndex:i];
-            UILabel *scoreTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10+320*i, 24, 300, 20)];
+            UILabel *scoreTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10+mainScreenSize.width*i, 24, mainScreenSize.width-20, 22)];
             scoreTitleLabel.textAlignment = NSTextAlignmentCenter;
             switch (i) {
                 case 0:
-                    [scoreTitleLabel setText:@"最高："];
+                    [scoreTitleLabel setText:NSLocalizedString(@"No.1", nil)];
                     break;
                 case 1:
-                    [scoreTitleLabel setText:@"第二："];
+                    [scoreTitleLabel setText:NSLocalizedString(@"No.2", nil)];
                     break;
                 case 2:
-                    [scoreTitleLabel setText:@"第三："];
+                    [scoreTitleLabel setText:NSLocalizedString(@"No.3", nil)];
                     break;
                 case 3:
-                    [scoreTitleLabel setText:@"第四："];
+                    [scoreTitleLabel setText:NSLocalizedString(@"No.4", nil)];
                     break;
                 default:
-                    [scoreTitleLabel setText:@"第五："];
+                    [scoreTitleLabel setText:NSLocalizedString(@"No.5", nil)];
                     break;
             }
             [contentView addSubview:scoreTitleLabel];
             
             // scoreLabel
-            UILabel *scoreLabel = [[UILabel alloc]initWithFrame:CGRectMake(10+320*i, 44, 300, 20)];
+            UILabel *scoreLabel = [[UILabel alloc]initWithFrame:CGRectMake(10+mainScreenSize.width*i, 44, mainScreenSize.width-20, 20)];
             scoreLabel.textAlignment = NSTextAlignmentCenter;
             scoreLabel.text = [NSString stringWithFormat:@"%i",bestImage.score];
             [contentView addSubview:scoreLabel];
             
             // scoreImage
-            UIImageView *scoreImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10+320*i, 90, 300, 300)];
+            UIImageView *scoreImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10+mainScreenSize.width*i, 90, mainScreenSize.width-20, mainScreenSize.width-20)];
             [scoreImageView setImage:bestImage.image];
             [contentView addSubview:scoreImageView];
         }

@@ -12,4 +12,5 @@
 
 - (IBAction)updateCurrentPassword:(id)sender;
 - (IBAction)settingPseudoPassword:(id)sender;
+- (IBAction)updateSecurity:(id)sender;
 @end

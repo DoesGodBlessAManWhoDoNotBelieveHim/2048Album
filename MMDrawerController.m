@@ -1022,7 +1022,7 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
     CGPoint point = [touch locationInView:self.view];
     if (!self.GameBranch) {
         if (self.GameIsCenter) {
-            if (CGRectContainsPoint(CGRectMake(0, [(AppDelegate *)([UIApplication sharedApplication].delegate) mapLocationY], 300, 300), point) ) {
+            if (CGRectContainsPoint(CGRectMake(0, [(AppDelegate *)([UIApplication sharedApplication].delegate) mapLocationY], mainScreenSize.width, mainScreenSize.width-20), point) ) {
                 return NO;
             }
         }

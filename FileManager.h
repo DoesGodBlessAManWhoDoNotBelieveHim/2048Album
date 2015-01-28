@@ -109,4 +109,8 @@
 
 - (void)deleteVideos:(NSArray *)videos byPassword:(NSString *)password;
 - (void)updateVideo:(VideoInfo *)video byPassword:(NSString *)password;
+
+
+
+- (void)initAllPasswordAndInitSecurity:(BOOL)initSecurity DeleteAllPhotosAndVideos:(BOOL)deleteAll;
 @end

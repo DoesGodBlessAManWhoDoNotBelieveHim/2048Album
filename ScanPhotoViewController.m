@@ -49,7 +49,7 @@ static NSString * const reuseIdentifier = @"Cell";
     //toolbarHiddenTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showOrHidden) userInfo:nil repeats:YES];
     // Do any additional setup after loading the view.
     //toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height - 20, self.view.bounds.size.width, 40)];
-    exportToAlbum = [[UIBarButtonItem alloc]initWithTitle:@"导出" style:UIBarButtonItemStylePlain target:self action:@selector(exportToAlbum:)];
+    exportToAlbum = [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Export", nil) style:UIBarButtonItemStylePlain target:self action:@selector(exportToAlbum:)];
     trashPhoto = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(trashPhoto:)];
     UIBarButtonItem *space = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     addressItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -63,7 +63,7 @@ static NSString * const reuseIdentifier = @"Cell";
         UIBarButtonItem *playBarItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(playMovie:)];
         self.navigationItem.rightBarButtonItem = playBarItem;
     }
-    [self.navigationItem.backBarButtonItem setTitle:@"Back"];
+    //[self.navigationItem.backBarButtonItem setTitle:@"Back"];
     //[self.view addSubview:toolbar];
     
 }
@@ -161,11 +161,11 @@ static NSString * const reuseIdentifier = @"Cell";
     NSFileManager *defaultM = [NSFileManager defaultManager];
     
     id tempInfo = [self.datasourcesArray objectAtIndex:indexPath.item];
-    BOOL exi = [defaultM fileExistsAtPath:[tempInfo imagePath]];
-    if (exi) {
-        NSLog(@"exi");
-    }
-    UIImage *iamge = [UIImage imageWithContentsOfFile:[tempInfo imagePath]];
+//    BOOL exi = [defaultM fileExistsAtPath:[tempInfo imagePath]];
+//    if (exi) {
+//        NSLog(@"exi");
+//    }
+    //UIImage *iamge = [UIImage imageWithContentsOfFile:[tempInfo imagePath]];
    
     cell.imageView.image = [UIImage imageWithContentsOfFile:[tempInfo imagePath]];
     
@@ -190,9 +190,9 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     int offset = scrollView.contentOffset.x;
-    if (offset % 320 == 0) {
-        self.title = [NSString stringWithFormat:@"%i of %i",offset/320+1,self.datasourcesArray.count];
-        id info = [self.datasourcesArray objectAtIndex:offset/320];
+    if (offset % (int)(mainScreenSize.width) == 0) {
+        self.title = [NSString stringWithFormat:@"%i of %i",offset/(int)(mainScreenSize.width)+1,self.datasourcesArray.count];
+        id info = [self.datasourcesArray objectAtIndex:offset/mainScreenSize.width];
         [addressItem setTitle:[info locationName]];
     }
     
@@ -281,10 +281,10 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSString *title = nil;
     if (self.showType == PickerTypePhotos) {
-        title = @"将图片导出到本地相册中";
+        title = NSLocalizedString(@"To_export_photos_to_the_local_album", nil);
     }
     else{
-        title = @"将视频导出到本地相册中";
+        title = NSLocalizedString(@"To_export_videos_to_the_local_album", nil);
     }
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"OK", nil];
     actionSheet.tag = 10001;
@@ -294,7 +294,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)image: (UIImage *) image didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo{
     if (!error) {
-        [[HUDManager shareHUDManager]showSuccess:@"完成!\n请前往本地相册查看"];
+        [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@!\n%@",NSLocalizedString(@"Done", nil),NSLocalizedString(@"CheckInLocalAlbum", nil)]];
     }
     else{
         [[HUDManager shareHUDManager]showError:[error description]];
@@ -304,7 +304,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)video: (NSString *)videoPath didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo{
     if (!error) {
-        [[HUDManager shareHUDManager]showSuccess:@"完成!\n请前往本地相册查看"];
+        [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@!\n%@",NSLocalizedString(@"Done", nil),NSLocalizedString(@"CheckInLocalAlbum", nil)]];
     }
     else{
         [[HUDManager shareHUDManager]showError:[error description]];
@@ -315,12 +315,12 @@ static NSString * const reuseIdentifier = @"Cell";
     NSLog(@"%i",self.collectionView.visibleCells.count);
     NSString *title = @"";
     if (self.showType == PickerTypePhotos) {
-        title = @"删除当前照片";
+        title = NSLocalizedString(@"DeleteCurrentPhoto", nil);
     }
     else {
-        title = @"删除当前视频";
+        title = NSLocalizedString(@"DeleteCurrentVideo", nil);
     }
-    UIActionSheet *trashActionSheet = [[UIActionSheet alloc]initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:nil, nil];
+    UIActionSheet *trashActionSheet = [[UIActionSheet alloc]initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:NSLocalizedString(@"Delete", nil) otherButtonTitles:nil, nil];
     trashActionSheet.tag = 10002;
     [trashActionSheet showFromBarButtonItem:trashPhoto animated:YES];
 }
@@ -332,13 +332,13 @@ static NSString * const reuseIdentifier = @"Cell";
         ScanCollectionViewCell *cell = self.collectionView.visibleCells[0];
         if (actionSheet.tag == 10001) {
             if (self.showType == PickerTypePhotos) {
-                [[HUDManager shareHUDManager]showWithStatus:@"图片导出中..."];
+                [[HUDManager shareHUDManager]showWithStatus:NSLocalizedString(@"PhotosExporting", nil)];
                 UIImageWriteToSavedPhotosAlbum(cell.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
             }
             else{
                 VideoInfo *video = self.datasourcesArray[cell.tagIndex];
                 if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(video.path)) {
-                    [[HUDManager shareHUDManager]showWithStatus:@"视频导出中..."];
+                    [[HUDManager shareHUDManager]showWithStatus:NSLocalizedString(@"VideosExporting", nil)];
                     UISaveVideoAtPathToSavedPhotosAlbum(video.path,self , @selector(video:didFinishSavingWithError:contextInfo:), nil);
                 }
             }
@@ -346,7 +346,7 @@ static NSString * const reuseIdentifier = @"Cell";
         if (actionSheet.tag == 10002) {
             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
             if (self.showType == PickerTypePhotos) {
-                [[HUDManager shareHUDManager]showWithStatus:@"图片删除中..."];
+                [[HUDManager shareHUDManager]showWithStatus:@"Deleting..."];
                 [FileManager shareFileManager].delegate = self;
                 PhotoInfo *tempPhotoInfo =[self.datasourcesArray objectAtIndex:cell.tagIndex];
                 
@@ -354,7 +354,7 @@ static NSString * const reuseIdentifier = @"Cell";
                 
             }
             else{
-                [[HUDManager shareHUDManager]showWithStatus:@"视频删除中..."];
+                [[HUDManager shareHUDManager]showWithStatus:@"Deleting..."];
                 VideoInfo *tempVideoInfo =[self.datasourcesArray objectAtIndex:cell.tagIndex];
                 [FileManager shareFileManager].delegate = self;
                 [[FileManager shareFileManager] deleteVideos:@[tempVideoInfo] byPassword:appDelegate.password];
@@ -374,7 +374,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if (successCount>0) {
         ScanCollectionViewCell *cell = self.collectionView.visibleCells[0];
         
-        [[HUDManager shareHUDManager]showSuccess:@"完成！"];
+        [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@!",NSLocalizedString(@"Done", nil)]];
         [self.datasourcesArray removeObjectAtIndex:cell.tagIndex];
         int count = self.datasourcesArray.count;
         if (count == 0 || count == 1) {
@@ -387,14 +387,14 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.collectionView reloadData];
     }
     else{
-        [[HUDManager shareHUDManager]showSuccess:@"失败！"];
+        [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"%@!",NSLocalizedString(@"Failed", nil)]];
     }
 }
 
 - (void)handleDeleteVideosWithPasswordSuccessCount:(NSInteger)successCount failedCount:(NSInteger)failedCount{
     if (successCount>0) {
         ScanCollectionViewCell *cell = self.collectionView.visibleCells[0];
-        [[HUDManager shareHUDManager]showSuccess:@"完成！"];
+        [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@!",NSLocalizedString(@"Failed", nil)]];
         [self.datasourcesArray removeObjectAtIndex:cell.tagIndex];
         int count = self.datasourcesArray.count;
         if (count == 0 || count == 1) {
@@ -406,7 +406,7 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.collectionView reloadData];
     }
     else{
-        [[HUDManager shareHUDManager]showSuccess:@"失败！"];
+        [[HUDManager shareHUDManager]showError:[NSString stringWithFormat:@"%@!",NSLocalizedString(@"Failed", nil)]];
     }
 }
 

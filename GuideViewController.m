@@ -28,13 +28,13 @@
 {
     [super viewDidLoad];
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    self.title = @"GUIDE";
+    self.title = NSLocalizedString(@"GUIDE", nil);
     // Do any additional setup after loading the view.
-    guideScrollView.contentSize = CGSizeMake(guideScrollView.bounds.size.width * 3, guideScrollView.bounds.size.height-64);
+    guideScrollView.contentSize = CGSizeMake(mainScreenSize.width * 3, mainScreenSize.height-64);
     guideScrollView.pagingEnabled = YES;
     guideScrollView.delegate = self;
     for (int i = 0; i < 3; i ++) {
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(guideScrollView.bounds.size.width * i, 0, guideScrollView.bounds.size.width, guideScrollView.bounds.size.height)];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(mainScreenSize.width * i, 0, mainScreenSize.width, mainScreenSize.height)];
         [imageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"guide%i.png",i+1]]];
         [guideScrollView addSubview:imageView];
     }

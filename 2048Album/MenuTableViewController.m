@@ -48,11 +48,11 @@
     self.mm_drawerController.showMenu_ing = YES;
     self.mm_drawerController.GameIsCenter = NO;
     if ([NSStringFromClass([self.mm_drawerController.centerViewController class])isEqualToString:@"GameNavigationViewController"] ) {
-        dataSource = @[@"Leader Board",@"Guide",@"Feedback",@"About"];
+        dataSource = @[NSLocalizedString(@"LeaderBoard", nil),NSLocalizedString(@"Guide", nil),NSLocalizedString(@"FeedBack", nil),NSLocalizedString(@"About", nil)];
         gaming = YES;
     }
     else{
-        dataSource = @[@"密码管理",@"功能介绍",@"给个评价",@"检查更新",@"关于",@"返回游戏"];
+        dataSource = @[NSLocalizedString(@"SecuritySettings", nil),NSLocalizedString(@"Guide", nil),NSLocalizedString(@"Rate", nil),NSLocalizedString(@"CheckVersion", nil),NSLocalizedString(@"About", nil),NSLocalizedString(@"BackToGame", nil)/*,NSLocalizedString(@"About"@"密码管理",@"功能介绍",@"给个评价",@"检查更新",@"关于",@"返回游戏"*/];
         gaming = NO;
     }
     [self.tableView reloadData];

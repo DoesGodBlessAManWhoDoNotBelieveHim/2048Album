@@ -40,4 +40,5 @@ typedef enum {
 
 - (id)initWithType:(LockViewType)type; // 直接指定方式打开
 - (id)initWithType:(LockViewType)type isMainPassword:(BOOL)isMainPassword;
+- (IBAction)buttomButtonAction:(id)sender;
 @end

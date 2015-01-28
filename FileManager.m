@@ -16,6 +16,8 @@
 
 #import "GeocoderManager.h"
 
+#import "SecurityQuestion.h"
+
 #define kAlbum @"Album"
 #define kVideo @"Video"
 
@@ -257,38 +259,43 @@ static FileManager *fileManager = nil;
 }
 
 - (void)savePhoto:(PhotoInfo *)photoInfo withPassword:(NSString *)password{
+    LKDBHelper *dbhelper = [AppDelegate getUsingLKDBHelper];
+    PasswordInfo *passwordInfo = [dbhelper searchSingle:[PasswordInfo class] where:@"isMainPassword='1'" orderBy:nil];
+    BOOL mainPassword= NO;
+    if ([passwordInfo.password isEqualToString:password]) {
+        mainPassword = YES;
+    }
+    photoInfo.mainPassword = mainPassword;
+
+    BOOL success = NO;
     NSFileManager *defaultManger = [NSFileManager defaultManager];
     LKDBHelper *globalHelper = [AppDelegate getUsingLKDBHelper];
-    [globalHelper search:nil column:nil where:nil orderBy:nil offset:0 count:0];
-    NSString *photoDirectory = [NSString stringWithFormat:@"%@/%@/%@",self.rootDirectory,password,kAlbum];
-    BOOL success = NO;
     
-    if ([defaultManger fileExistsAtPath:photoDirectory isDirectory:nil]) {
-        NSArray *allDateDirectories = [defaultManger contentsOfDirectoryAtPath:photoDirectory error:nil];//检查是否某个时期的图片文件夹
-        for (NSString *dateStr in allDateDirectories) {
-            if ([dateStr isEqualToString:@".DS_Store"]) {
-                continue;
-            }
-            
-            if ([photoInfo.date isEqualToString:dateStr]) {
-                NSString *photoPath = [NSString stringWithFormat:@"%@/%@/%@",photoDirectory,dateStr,photoInfo.name];
-                if (![defaultManger fileExistsAtPath:photoPath]) {
-                    if ([photoInfo.name hasSuffix:@"png"] || [photoInfo.name hasSuffix:@"PNG"]) {
-                        success = [UIImagePNGRepresentation(photoInfo.image) writeToFile:photoPath atomically:NO];
-                    }
-                    else{
-                        success = [UIImageJPEGRepresentation(photoInfo.image, 0.75) writeToFile:photoPath atomically:NO];
-                    }
-                    if (success) {
-                        success = [globalHelper insertToDB:photoInfo];
-                        if (success) {
-                            [self.delegate handleCreateANewPhoto:photoInfo success:success alreadyExist:NO];
-                        }
-                    }
-                }
+    NSString *photoDateDirectory = [NSString stringWithFormat:@"%@/%@/%@/%@",self.rootDirectory,password,kAlbum,photoInfo.date];
+    if (![defaultManger fileExistsAtPath:photoDateDirectory]) {
+        [defaultManger createDirectoryAtPath:photoDateDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    NSString *photoPath = [NSString stringWithFormat:@"%@/%@",photoDateDirectory,photoInfo.name];
+    if (![defaultManger fileExistsAtPath:photoPath]) {
+        if ([photoInfo.name hasSuffix:@"png"] || [photoInfo.name hasSuffix:@"PNG"]) {
+            success = [UIImagePNGRepresentation(photoInfo.image) writeToFile:photoPath atomically:NO];
+        }
+        else{
+            success = [UIImageJPEGRepresentation(photoInfo.image, 0.75) writeToFile:photoPath atomically:NO];
+        }
+        if (success) {
+            success = [globalHelper insertToDB:photoInfo];
+            if (success) {
+                [self.delegate handleCreateANewPhoto:photoInfo success:success alreadyExist:NO];
             }
         }
+
     }
+    else{
+        [self.delegate handleCreateANewPhoto:photoInfo success:NO alreadyExist:YES];
+    }
+    
 }
 
 - (void)savePhotos:(NSArray *)photos withPassword:(NSString *)password{
@@ -443,24 +450,12 @@ static FileManager *fileManager = nil;
                             }
                             
                             NSString *photoPath = [NSString stringWithFormat:@"%@/%@",photosDirectory,photoName];
-                            PhotoInfo *photoInfo = [globalHelper searchSingle:[PhotoInfo class] where:[NSString stringWithFormat:@"name='%@' AND mainPassword=%i",photoName,mainPassword?1:0] orderBy:nil];
+                            PhotoInfo *photoInfo = [globalHelper searchSingle:[PhotoInfo class] where:[NSString stringWithFormat:@"name='%@' AND mainPassword='%i'",photoName,mainPassword?1:0] orderBy:nil];
                             
                             
                             if (photoInfo) {
                                 NSLog(@"photoPath:%@\nimagePath:%@",photoPath,photoInfo.imagePath);
                                 photoInfo.imagePath = photoPath;
-                                /*
-                                if ([shareImageCache objectForKey:photoInfo.cacheImageKey]) {
-                                    photoInfo.image = [shareImageCache objectForKey:photoInfo.cacheImageKey];
-                                }
-                                else{
-                                    photoInfo.image = [UIImage imageWithContentsOfFile:photoPath];
-                                    [shareImageCache setObject:photoInfo.image forKey:photoInfo.cacheImageKey];
-                                }
-                                 */
-                                /*if (![shareImageCache objectForKey:photoInfo.cacheImageKey]) {
-                                    [shareImageCache setObject:photoPath forKey:photoInfo.cacheImageKey];
-                                }*/
                                 [photosArray addObject:photoInfo];
                                 photoInfo = nil;
                             }
@@ -688,5 +683,36 @@ static FileManager *fileManager = nil;
     }
 }
 
+
+
+- (void)initAllPasswordAndInitSecurity:(BOOL)initSecurity DeleteAllPhotosAndVideos:(BOOL)deleteAll{
+    NSFileManager *defaultManager = [NSFileManager defaultManager];
+    LKDBHelper *globalHelper = [AppDelegate getUsingLKDBHelper];
+    NSArray *passwords = [globalHelper search:[PasswordInfo class] where:nil orderBy:nil offset:0 count:0];
+    
+    if (deleteAll) {
+        for (PasswordInfo *password in passwords) {
+            [defaultManager removeItemAtPath:[NSString stringWithFormat:@"%@/%@",self.rootDirectory,password.password] error:nil];
+            
+            [defaultManager createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@",self.rootDirectory,password.password] withIntermediateDirectories:YES attributes:nil error:nil];
+            [defaultManager createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@/%@",self.rootDirectory,password.password,kAlbum] withIntermediateDirectories:YES attributes:nil error:nil];
+            [defaultManager createDirectoryAtPath:[NSString stringWithFormat:@"%@/%@/%@",self.rootDirectory,password.password,kVideo]  withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+    }
+    
+    if (initSecurity) {
+        SecurityQuestion *security = [[SecurityQuestion alloc]init];
+        security.question = @"0";
+        security.answer1 = @"1";
+        security.answer2 = @"-1";
+        [globalHelper updateToDB:security where:@{@"id":@(0)}];
+    }
+    
+    for (PasswordInfo *password in passwords) {
+        [defaultManager moveItemAtPath:[NSString stringWithFormat:@"%@/%@",self.rootDirectory,password.password] toPath:[NSString stringWithFormat:@"%@/%@",self.rootDirectory,password.isMainPassword?@"123":@"321"] error:nil];
+        [globalHelper updateToDB:[password class]set:[NSString stringWithFormat:@"password=%@",password.isMainPassword?@"123":@"321"] where:@{@"password":password.password}];
+    }
+    
+}
 
 @end

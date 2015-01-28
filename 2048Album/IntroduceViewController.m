@@ -26,7 +26,13 @@
     introcuceScroll.pagingEnabled = YES;
     for (int i=0; i<IntroduceImageCount; i++) {
         UIImageView *iv = [[UIImageView alloc]initWithFrame:CGRectMake(i*mainScreenSize.width, 0, mainScreenSize.width, mainScreenSize.height)];
-        iv.image = [UIImage imageNamed:[NSString stringWithFormat:@"%i.png",i+1]];
+        if (mainScreenSize.height == 480) {
+            iv.image = [UIImage imageNamed:[NSString stringWithFormat:@"4-%i.png",i+1]];
+        }
+        else if (mainScreenSize.height == 568){
+            iv.image = [UIImage imageNamed:[NSString stringWithFormat:@"5-%i.png",i+1]];
+        }
+        
         [introcuceScroll addSubview:iv];
     }
     introcuceScroll.delegate = self;

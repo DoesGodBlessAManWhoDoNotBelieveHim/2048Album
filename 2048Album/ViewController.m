@@ -68,7 +68,6 @@
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tipLabelTopSpaceToMenuButton;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *lockViewTopSpaceToTipLabel;
 
 @end
 
@@ -79,11 +78,11 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"viewDidDisappear");
     [super viewDidDisappear:animated];
 }
 
 - (void)gotoRate:(id)sender{
+    /*
     SKStoreProductViewController *store = [[SKStoreProductViewController alloc]init];
     store.delegate = self;
     [store loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier : @"587767923"} completionBlock:^(BOOL result, NSError *error) {
@@ -102,7 +101,7 @@
                 [indicatior removeFromSuperview];
             }];
         }
-    }];
+    }];*/
     /*
     NSString *str2 = [NSString stringWithFormat:
                       @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=%@",
@@ -125,10 +124,10 @@
 
 - (void)shiftEffectState:(id)sender{
     if (effectSoundEnable) {
-        [self.effect setTitle:@"Effect Off" forState:UIControlStateNormal];
+        [self.effect setTitle:NSLocalizedString(@"EffectOn", nil) forState:UIControlStateNormal];
     }
     else {
-        [self.effect setTitle:@"Effect On" forState:UIControlStateNormal];
+        [self.effect setTitle:NSLocalizedString(@"EffectOff", nil) forState:UIControlStateNormal];
     }
     effectSoundEnable = !effectSoundEnable;
     [[NSUserDefaults standardUserDefaults]setBool:effectSoundEnable forKey:kEffectSoundEnable];
@@ -199,6 +198,34 @@
     self.mm_drawerController.GameIsCenter = YES;
     self.mm_drawerController.GameBranch = NO;
 }
+
+- (void)updateViewConstraints{
+    [super updateViewConstraints];
+    //[self drawMap];
+}
+
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+
+- (BOOL)shouldAutomaticallyForwardRotationMethods{
+    return NO;
+}
+
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+    return toInterfaceOrientation == UIInterfaceOrientationPortrait;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
+    
+}
+
 /*
 - (void)test{
     [self createGameResultImageFilePath];

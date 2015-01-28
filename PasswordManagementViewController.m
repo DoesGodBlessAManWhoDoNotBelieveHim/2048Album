@@ -10,6 +10,8 @@
 #import "SecurityViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "PasswordInfo.h"
+
+#import "SecurityQuestionManagementViewController.h"
 @interface PasswordManagementViewController ()
 
 @end
@@ -19,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = NSLocalizedString(@"SecuritySettings", nil);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,15 +33,19 @@
     self.mm_drawerController.GameBranch = YES;
     self.mm_drawerController.GameIsCenter = NO;
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"UpdateSecurity"]) {
+        SecurityQuestionManagementViewController *destination = segue.destinationViewController;
+        destination.securityType = UpdateSecurity;
+    }
 }
-*/
+
 
 - (IBAction)updateCurrentPassword:(id)sender {
     BOOL isMain= [TooManager currentPasswordIsMainPassword];
@@ -55,5 +62,9 @@
     
     securityViewController.currentPasswordIsMain = isMain;
     [self.navigationController pushViewController:securityViewController animated:YES];
+}
+
+- (IBAction)updateSecurity:(id)sender {
+    [self performSegueWithIdentifier:@"UpdateSecurity" sender:self];
 }
 @end

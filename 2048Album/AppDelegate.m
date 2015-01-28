@@ -17,6 +17,8 @@
 
 #import "IntroduceViewController.h"
 
+#import "SecurityQuestion.h"
+
 @interface AppDelegate(){
     MMDrawerController * drawerController;
     GameNavigationViewController *centerNavigation;
@@ -63,6 +65,15 @@
         [[NSUserDefaults standardUserDefaults]synchronize];
         [[FileManager shareFileManager]createAlbumDirectoryWithPassword:@"123" isMainPassword:YES];
         [[FileManager shareFileManager]createAlbumDirectoryWithPassword:@"321" isMainPassword:NO];
+        
+        LKDBHelper *globalHelper = [AppDelegate getUsingLKDBHelper];
+        
+        SecurityQuestion *security = [[SecurityQuestion alloc]init];
+        security.question = @"0";
+        security.answer1 = @"1";
+        security.answer2 = @"-1";
+        [globalHelper insertToDB:security];
+
     }
     
     centerNavigation = [storyBoard instantiateViewControllerWithIdentifier:@"CenterNavigationViewControlelr"];

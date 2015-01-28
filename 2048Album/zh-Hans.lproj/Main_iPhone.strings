@@ -5,6 +5,9 @@
 /* Class = "IBUIBarButtonItem"; title = "Back"; ObjectID = "0pf-D8-lEf"; */
 "0pf-D8-lEf.title" = "返回";
 
+/* Class = "IBUILabel"; text = "Defualt:\"-1\""; ObjectID = "5RN-gC-cTe"; */
+"5RN-gC-cTe.text" = "默认:\"-1\"";
+
 /* Class = "IBUIButton"; normalTitle = "Reset"; ObjectID = "CJq-kR-GNo"; */
 "CJq-kR-GNo.normalTitle" = "重来";
 
@@ -17,14 +20,17 @@
 /* Class = "IBUIBarButtonItem"; title = "Edit"; ObjectID = "Hib-Az-ZCk"; */
 "Hib-Az-ZCk.title" = "编辑";
 
+/* Class = "IBUIButton"; normalTitle = "Security Question Settings"; ObjectID = "K5V-y0-tha"; */
+"K5V-y0-tha.normalTitle" = "密保设置";
+
 /* Class = "IBUINavigationItem"; title = "共0张图片"; ObjectID = "LDK-ic-2HV"; */
 "LDK-ic-2HV.title" = "共0张图片";
 
 /* Class = "IBUIButton"; normalTitle = "effect"; ObjectID = "MN2-sf-W2M"; */
-"MN2-sf-W2M.normalTitle" = "effect";
+"MN2-sf-W2M.normalTitle" = "音效";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "OLu-AT-Wcb"; */
-"OLu-AT-Wcb.text" = "Label";
+"OLu-AT-Wcb.text" = "";
 
 /* Class = "IBUITextView"; text = "2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss2048ALMBssssssssssssssssssssssss"; ObjectID = "QH2-DK-cnp"; */
 "QH2-DK-cnp.text" = "这是中文的关于八月份吧";
@@ -83,6 +89,14 @@
 /* Class = "IBUISegmentedControl"; kjq-sH-bOc.segmentTitles[1] = "视频"; ObjectID = "kjq-sH-bOc"; */
 "kjq-sH-bOc.segmentTitles[1]" = "视频";
 
+/* Class = "IBUILabel"; text = "忘记密码时，输入此问题以及对应的答案，可以重置原始密码\"123\"和\"321\"。但输入第二个答案会删除所有的照片和录像信息！
+ "; ObjectID = "n8v-Q3-dXK"; */
+"n8v-Q3-dXK.text" = "忘记密码时，输入此问题以及对应的答案，可以重置原始密码\"123\"和\"321\"。但输入第二个答案会删除所有的照片和录像信息！
+";
+
+/* Class = "IBUILabel"; text = "Defualt:\"0\""; ObjectID = "pp6-En-7Ap"; */
+"pp6-En-7Ap.text" = "默认:\"0\"";
+
 /* Class = "IBUIButton"; normalTitle = "伪密码设置"; ObjectID = "raR-1d-XYq"; */
 "raR-1d-XYq.normalTitle" = "伪密码设置";
 
@@ -90,7 +104,7 @@
 "rmN-F6-FIp.text" = "2";
 
 /* Class = "IBUILabel"; text = "Label"; ObjectID = "s53-8V-g7J"; */
-"s53-8V-g7J.text" = "Label";
+"s53-8V-g7J.text" = "";
 
 /* Class = "IBUINavigationItem"; title = "功能介绍"; ObjectID = "u7i-lZ-eK5"; */
 "u7i-lZ-eK5.title" = "功能介绍";
@@ -100,6 +114,9 @@
 
 /* Class = "IBUILabel"; text = "Best"; ObjectID = "uF1-hR-Ykk"; */
 "uF1-hR-Ykk.text" = "最高";
+
+/* Class = "IBUILabel"; text = "Defualt:\"1\""; ObjectID = "xrS-ba-emP"; */
+"xrS-ba-emP.text" = "默认:\"1\"";
 
 /* Class = "IBUILabel"; text = "0"; ObjectID = "zar-KU-ntr"; */
 "zar-KU-ntr.text" = "0";

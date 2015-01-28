@@ -1,33 +1,43 @@
-/* 
-  Localizable.strings
-  2048Album
-
-  Created by Jzhang on 15-1-13.
-  Copyright (c) 2015年 hket.com. All rights reserved.
-*/
+/*
+ Localizable.strings
+ 2048Album
+ 
+ Created by Jzhang on 15-1-13.
+ Copyright (c) 2015年 hket.com. All rights reserved.
+ */
+/*
+ Localizable.strings
+ 2048Album
+ 
+ Created by Jzhang on 15-1-13.
+ Copyright (c) 2015年 hket.com. All rights reserved.
+ */
 "FontName"="Marker Felt";
 "Back" = "Back";
-
+"Delete" = "Delete";
+"Cancel" = "Cancel";
+"Done" = "Done";
+"Failed" = "Failed";
 
 /*                          Game                    */
 /*        Menu            */
-"Leader Board" = "Leader Board";
-"GameGuide" = "Guide";
-"GameFeedBack" = "FeedBack";
-"GameAbout" =   "About";
+"LeaderBoard" = "LEADER BOARD";
+"Guide" = "GUIDE";
+"FeedBack" = "FEEDBACK";
+"About" =   "ABOUT";
 
 /*        ViewController     */
 
 "Menu"      = "Menu";
 "Reset"     = "Reset";
-"Effect On" = "Effect On";
-"Effect Off"= "Effect Off";
+"EffectOn" = "Effect On";
+"EffectOff"= "Effect Off";
 
 "GameTips"  = "Join the numbers and get to the 2048!";
 
 /*        Leader Board     */
 "LeaderBoardTitle" = "Only the best five records saved";
-"No.1" = "No.1";
+"No.1" = "The Best";
 "No.2" = "No.2";
 "No.3" = "No.3";
 "No.4" = "No.4";
@@ -46,8 +56,59 @@
 
 /******************************** Album *****************************/
 
+/* Security */
+"GesturePassword" = "GesturePassword";
+"ForgotPassword" = "Forgot Password";
+"Please_input_login_password_first"="Please input login password first!";
+"Please_input_correct_password" = "Please input correct password";
+"CorrectPassword" = "Correctly";
+"WrongPassword" = "Password Error";
+"Input_a_new_password"="Please input a new one";
+"Password_Error_Input_New_One"="Password Error!Try again!";
+"Draw_Again_Ensure" = "Draw again to ensure the password!";
+"Try_again_4_numbers_at_least"="Try again--4 numbers at least!";
+"Not_The_Same" = "Try again!The two passwords do not match!";
+"Modify_Password_Error" = "Modified Error";
 /*   Thumnail  */
 "PhotosAmount" = "photos";/*共_张图片*/
 "VideosAmount" = "videos";
 
 "Export" = "Export";
+"PhotosSaving" = "Photo(s) Saving...";
+"VideosSaving" = "Video(s) Saving...";
+"FailedToSavePhotoToPhone" = "Failed to saving Photo(s) To iPhone";
+"PhotosExport" = "Photo(s) Export...";
+"ImportFromAlbum" = "From Album";
+"ImportFromCamera" = "From Camera";
+"To_export_photos_to_the_local_album" = "Exporting selected photo(s) to the local album?";
+"To_export_videos_to_the_local_album" = "Exporting selected video(s) to the local album?";
+"Delete_the_selected_photos" = "Delete the selected photo(s)";
+"Delete_the_selected_videos" = "Delete the selected video(s)";
+
+"PhotosExporting" = "photo(s) exporting...";
+"VideosExporting" = "video(s) exporting...";
+"CheckInLocalAlbum" = "Please check in the local album!";
+"photosFailed" = "photo(s) failed!";
+"videosFailed" = "video(s) failed!";
+"TotalPhotos" = "Total: %i photo(s)";//总共%i张图片
+"TotalVideos" = "Total: %i video(s)";//总共%i张视频
+
+"ExistingPhotos" = "Existing Photo(s)";//该照片已存在
+"ExistingVideos" = "Existing Video(s)";//该视频已存在
+
+"SavingPhotosError" = "Photo(s) saved failed";//照片存储失败
+"SavingVideosError" = "Video(s) saved failed";//视频存储失败
+
+"DeleteCurrentPhoto" = "Delete Current Photo";
+"DeleteCurrentVideo" = "Delete Current Video";
+
+
+"Please_Input_Security_Question_Here"="Input security question here";
+"Please_Input_Security_Answer_Here"="Input security answer here";
+"Please_Input_The_Second_Security_Answer_Here"="Input the 2nd answer";
+/*MenuTableViewController*/
+
+"SecuritySettings" = "SECURITY SETTINGS";
+"Rate" = "RATE";
+"CheckVersion" = "VERSION UPDATE";
+"BackToGame" = "BACK TO GAME";

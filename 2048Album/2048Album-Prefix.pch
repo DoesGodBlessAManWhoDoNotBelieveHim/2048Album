@@ -8,8 +8,11 @@
 
 #define mainScreenSize [UIScreen mainScreen].bounds.size
 
+#define leftGameMargin 10.0f
 #define cellSpace 4.0f
-#define cellSize 70.0f
+//#define cellSize 70.0f
+#define cellSize (mainScreenSize.width-2*leftGameMargin-5*cellSpace)/4.0
+
 //#define mapLocationY    220
 
 #define kEffectSoundEnable @"EffectSoundEnable"

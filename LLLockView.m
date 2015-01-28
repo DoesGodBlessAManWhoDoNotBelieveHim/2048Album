@@ -11,7 +11,7 @@
 
 #define kLLBaseCircleNumber 10000       // tag基数（请勿修改）
 #define kCircleMargin 32.0              // 圆点离屏幕左边距
-#define kCircleDiameter 68.0            // 圆点直径
+#define kCircleDiameter (mainScreenSize.width==320?80:88)            // 圆点直径
 #define kLLCircleAlpha 1.0              // 圆点透明度
 #define kLLLineWidth 4.0               // 线条宽
 #define kLLLineColor [UIColor colorWithRed:77.0/255.0 green:76.0/255.0 blue:156.0/255.0 alpha:0.8] // 线条色蓝
@@ -71,8 +71,8 @@
     // 初始化圆点
     for (int i = 0; i < 9; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        int x = kCircleMargin + (i%3) * (kCircleDiameter+(320-kCircleMargin*2- kCircleDiameter *3)/2);
-        int y = kCircleMargin + (i/3) * (kCircleDiameter+(320-kCircleMargin*2- kCircleDiameter *3)/2);
+        int x = kCircleMargin + (i%3) * (kCircleDiameter+(mainScreenSize.width-kCircleMargin*2- kCircleDiameter *3)/2);
+        int y = kCircleMargin + (i/3) * (kCircleDiameter+(mainScreenSize.width-kCircleMargin*2- kCircleDiameter *3)/2);
 //        LLLog(@"每个圆点位置 %d,%d", x, y);
         [button setFrame:CGRectMake(x, y, kCircleDiameter, kCircleDiameter)];
         

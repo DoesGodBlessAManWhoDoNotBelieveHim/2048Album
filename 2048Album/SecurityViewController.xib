@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SecurityViewController">
@@ -21,16 +21,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gmE-4T-6ue" customClass="LLLockView">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gmE-4T-6ue" customClass="LLLockView">
                     <rect key="frame" x="0.0" y="127" width="320" height="320"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="gmE-4T-6ue" secondAttribute="height" multiplier="1:1" id="Ddg-j2-tZo"/>
+                    </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXz-lp-Dzh" customClass="LLLockIndicator">
-                    <rect key="frame" x="146" y="72" width="28" height="28"/>
+                    <rect key="frame" x="146" y="72" width="32" height="32"/>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="28" id="YLC-p0-Ngz"/>
-                        <constraint firstAttribute="width" constant="28" id="zG1-78-5KS"/>
+                        <constraint firstAttribute="height" constant="32" id="YLC-p0-Ngz"/>
+                        <constraint firstAttribute="width" constant="32" id="zG1-78-5KS"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="绘制提示" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGL-cN-iYs">
@@ -39,23 +42,28 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXY-N0-gXg">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXY-N0-gXg">
                     <rect key="frame" x="98" y="449" width="124" height="22"/>
                     <state key="normal" title="忘记密码|重新绘制">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="buttomButtonAction:" destination="-1" eventType="touchUpInside" id="5jb-VT-EgK"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="gmE-4T-6ue" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="1Au-Be-P7E"/>
+                <constraint firstAttribute="centerX" secondItem="lXY-N0-gXg" secondAttribute="centerX" id="1CU-b2-Un5"/>
                 <constraint firstItem="lXY-N0-gXg" firstAttribute="top" secondItem="gmE-4T-6ue" secondAttribute="bottom" id="Ee2-Mt-nwL"/>
+                <constraint firstAttribute="centerX" secondItem="gmE-4T-6ue" secondAttribute="centerX" id="Ev0-vQ-nW1"/>
                 <constraint firstItem="CGL-cN-iYs" firstAttribute="top" secondItem="TXz-lp-Dzh" secondAttribute="bottom" constant="6" id="G6w-0O-0fu"/>
                 <constraint firstItem="TXz-lp-Dzh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="72" id="Gki-Zf-QBX"/>
                 <constraint firstAttribute="trailing" secondItem="gmE-4T-6ue" secondAttribute="trailing" id="Nra-yV-Uwl"/>
                 <constraint firstItem="gmE-4T-6ue" firstAttribute="top" secondItem="CGL-cN-iYs" secondAttribute="bottom" id="QIX-uF-YMb"/>
                 <constraint firstAttribute="trailing" secondItem="CGL-cN-iYs" secondAttribute="trailing" constant="8" id="QVI-P6-Qzl"/>
-                <constraint firstItem="TXz-lp-Dzh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="146" id="ktH-bd-Cn5"/>
+                <constraint firstAttribute="centerX" secondItem="TXz-lp-Dzh" secondAttribute="centerX" constant="-2" id="woh-mY-g6C"/>
                 <constraint firstItem="CGL-cN-iYs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="zoY-w4-TNz"/>
             </constraints>
             <point key="canvasLocation" x="242" y="398"/>
