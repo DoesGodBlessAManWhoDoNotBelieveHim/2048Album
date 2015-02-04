@@ -8,7 +8,7 @@
 //
 //  解锁控件头文件，使用时包含它即可
 
-#define LLLockRetryTimes 5 // 最多重试几次
+//#define LLLockRetryTimes 5 // 最多重试几次
 #define LLLockAnimationOn  // 开启窗口动画，注释此行即可关闭
 
 #import <UIKit/UIKit.h>

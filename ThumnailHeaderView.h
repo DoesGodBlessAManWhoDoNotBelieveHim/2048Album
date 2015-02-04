@@ -12,6 +12,5 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *dateLabel;
 
-@property (nonatomic, strong) IBOutlet UILabel *placeLabel;
 
 @end

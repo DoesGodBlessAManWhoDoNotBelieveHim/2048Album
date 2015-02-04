@@ -105,7 +105,7 @@
     }
     
     // 尝试机会
-    nRetryTimesRemain = LLLockRetryTimes;
+    //nRetryTimesRemain = LLLockRetryTimes;
     
     self.passwordOld = @"";
     self.passwordNew = @"";

@@ -29,7 +29,7 @@
 - (void)handleDeleteAPhoto:(PhotoInfo *)photoInfo;
 
 // search
-- (void)handleSelectAllPasswrods:(NSArray *)albumsArray success:(BOOL)success;
+//- (void)handleSelectAllPasswrods:(NSArray *)albumsArray success:(BOOL)success;
 - (void)handleSelectPhotos:(NSArray *)photos byPassword:(NSString *)password success:(BOOL)success;
 
 // update
@@ -44,7 +44,7 @@
 @end
 
 @interface FileManager : NSObject{
-    id<FileManagerDelegate> delegate;
+    //id<FileManagerDelegate> delegate;
 }
 
 @property (nonatomic, assign) id<FileManagerDelegate> delegate;
@@ -84,7 +84,7 @@
  */
 - (void)savePhotos:(NSArray *)photos  withPassword:(NSString *)password;
 
-- (NSArray *)selectAllPassword;
+//- (NSArray *)selectAllPassword;
 /**
  *  根据密码查找photos
  *  password:密码
@@ -95,7 +95,7 @@
 - (void)deletePhotosByPassword:(NSString *)password;
 /** 删除某一张或者某几张图片图片 */
 - (void)deletePhotosByPassword:(NSString *)password photos:(NSArray *)photoInfos;
-- (void)deleteAPhotoByPassword:(NSString *)password;
+//- (void)deleteAPhotoByPassword:(NSString *)password;
 
 - (void)updatePhoto:(PhotoInfo *)photo byPassword:(NSString *)password;
 - (void)updateCurrentPassword:(NSString *)currentPassword toNewPassword:(NSString *)newPassword;

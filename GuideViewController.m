@@ -28,7 +28,7 @@
 {
     [super viewDidLoad];
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    self.title = NSLocalizedString(@"GUIDE", nil);
+    self.title = NSLocalizedString(@"Guide", nil);
     // Do any additional setup after loading the view.
     guideScrollView.contentSize = CGSizeMake(mainScreenSize.width * 3, mainScreenSize.height-64);
     guideScrollView.pagingEnabled = YES;
@@ -41,16 +41,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    if (scrollView.contentOffset.x == 640) {
-        NSLog(@"scrollViewDidScrollTOThree");
-        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"More" style:UIBarButtonItemStylePlain target:self action:@selector(gogogirl:)];
-        self.navigationItem.rightBarButtonItem = rightItem;
-    }
-}
 
-- (void)gogogirl:(id)sender{
-    NSLog(@"gogogirl");
 }
 
 - (void)didReceiveMemoryWarning

@@ -12,9 +12,9 @@
 
 @property (nonatomic, copy) NSString *password;
 
-@property (nonatomic, copy) NSString *question;
-
-@property (nonatomic, copy) NSString *answer;
+//@property (nonatomic, copy) NSString *question;
+//
+//@property (nonatomic, copy) NSString *answer;
 
 @property (nonatomic, assign) BOOL isMainPassword;
 

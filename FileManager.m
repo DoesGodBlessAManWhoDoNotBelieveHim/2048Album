@@ -35,6 +35,7 @@
 
 static FileManager *fileManager = nil;
 @implementation FileManager
+@synthesize delegate;
 @synthesize scoreImageFileDirectory;
 
 @synthesize thumnailImages,fullSizeImages;
@@ -205,8 +206,8 @@ static FileManager *fileManager = nil;
         PasswordInfo *mainPassword = [[PasswordInfo alloc]init];
         mainPassword.password = password;
         mainPassword.isMainPassword = YES;
-        mainPassword.question = @"123";
-        mainPassword.answer = @"123";
+//        mainPassword.question = @"123";
+//        mainPassword.answer = @"123";
         BOOL success = [globalHelper insertToDB:mainPassword];
         if (success) {
             [self createAlbumDirectoryWithPassword:password];

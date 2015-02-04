@@ -10,7 +10,10 @@
 
 @interface PasswordManagementViewController : UIViewController
 
+@property (nonatomic,assign) BOOL willModifyTapsGesrure;
+
 - (IBAction)updateCurrentPassword:(id)sender;
-- (IBAction)settingPseudoPassword:(id)sender;
+- (IBAction)settingTapGesture:(id)sender;
+
 - (IBAction)updateSecurity:(id)sender;
 @end

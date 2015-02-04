@@ -484,13 +484,13 @@
     if (segmentControl.selectedSegmentIndex == 0) {
         PhotoInfo *photoInfo = photosArray[indexPath.section][0];
         headerView.dateLabel.text = photoInfo.date;
-        headerView.placeLabel.text = [NSString stringWithFormat:@"(long:%@,lat:%@)",photoInfo.longitude,photoInfo.latitude];
+        //headerView.placeLabel.text = [NSString stringWithFormat:@"(long:%@,lat:%@)",photoInfo.longitude,photoInfo.latitude];
         photoInfo = nil;
     }
     else{
         VideoInfo *videoInfo = videosArray[indexPath.section][0];
         headerView.dateLabel.text = videoInfo.date;
-        headerView.placeLabel.text = [NSString stringWithFormat:@"(long:%@,lat:%@)",videoInfo.longitude,videoInfo.latitude];
+        //headerView.placeLabel.text = [NSString stringWithFormat:@"(long:%@,lat:%@)",videoInfo.longitude,videoInfo.latitude];
         videoInfo = nil;
     }
     

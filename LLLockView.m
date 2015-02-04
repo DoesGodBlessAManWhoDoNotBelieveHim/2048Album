@@ -200,7 +200,7 @@
     // 生成密码串
     for (int i=0; i < selectedButtonArray.count; i++) {
         strbutton = selectedButtonArray[i];
-        string= [string stringByAppendingFormat:@"%d",strbutton.tag-kLLBaseCircleNumber];
+        string= [string stringByAppendingFormat:@"%ld",(strbutton.tag-kLLBaseCircleNumber)];
     }
     
     [self clearColorAndSelectedButton]; // 清除到初始样式

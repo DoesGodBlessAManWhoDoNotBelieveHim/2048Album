@@ -11,15 +11,15 @@
 #import "LLLockView.h"
 #import "LLLockPassword.h"
 
-#define LockRetryTimes 5 // 最多重试几次
+//#define LockRetryTimes 5 // 最多重试几次
 //#define LLLockAnimationOn  // 开启窗口动画，注释此行即可关闭
 
 // 进入此界面时的不同目的
 typedef enum {
     LockViewTypeLogin,  // 登陆
     LockViewTypeUpdate, // 修改密码
+    LockViewTypeCheck   // 检查修改 从游戏界面进入密码手势
 }LockViewType;
-
 
 @interface SecurityViewController : UIViewController
 @property (strong, nonatomic) IBOutlet LLLockIndicator *indicatorView;
@@ -34,11 +34,11 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *buttomButtonTopSpaceToLockView;
 
 @property (nonatomic) LockViewType lockViewType; // 此窗口的类型
-@property (nonatomic) BOOL isMainPassword; // 此窗口的类型
+//@property (nonatomic) BOOL isMainPassword; // 此窗口的类型
 
-@property (nonatomic, assign) BOOL currentPasswordIsMain;//
+//@property (nonatomic, assign) BOOL currentPasswordIsMain;//
 
 - (id)initWithType:(LockViewType)type; // 直接指定方式打开
-- (id)initWithType:(LockViewType)type isMainPassword:(BOOL)isMainPassword;
+//- (id)initWithType:(LockViewType)type isMainPassword:(BOOL)isMainPassword;
 - (IBAction)buttomButtonAction:(id)sender;
 @end

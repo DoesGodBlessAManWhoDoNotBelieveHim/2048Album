@@ -32,6 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    quetionTextField.text = @"";
+    answer1TextField.text = @"";
+    answer2TextField.text = @"";
     tipsLabel.hidden = YES;
     firstIn = YES;
     rightDone = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(saveNewSecurityQuestionAndAnswers:)];

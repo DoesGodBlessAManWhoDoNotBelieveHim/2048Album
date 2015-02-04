@@ -29,7 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    self.title = @"ABOUT";
+    self.title = NSLocalizedString(@"About", nil);
     self.contentTextView.text = @"2048AboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAboutAbout";
     self.contentTextView.textColor = [UIColor blackColor];
 }

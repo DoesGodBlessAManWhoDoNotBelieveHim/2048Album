@@ -19,7 +19,7 @@
 
 #import "SecurityViewController.h"
 
-
+#import "TapGestureMaskView.h"
 #define animationDuration 0.1f
 @interface ViewController ()<UIGestureRecognizerDelegate,MFMailComposeViewControllerDelegate,SKStoreProductViewControllerDelegate>{
     SystemSoundID effectSoundID;
@@ -175,7 +175,7 @@
         //self.lockViewTopSpaceToTipLabel.constant = 5.0f;
     }
     
-    [self rectifyTheStateOfEffectSound];
+    [self shiftEffectState:nil];
     
     [self drawMap];
     [self initGame];
@@ -284,8 +284,21 @@
     [imageView addGestureRecognizer:swip];
     
     UITapGestureRecognizer *doubleFingerDoubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openAlbum:)];
-    doubleFingerDoubleTap.numberOfTapsRequired = 3;
-    [doubleFingerDoubleTap setNumberOfTouchesRequired:2];
+    NSString *numberOfTapsRequired =[[NSUserDefaults standardUserDefaults]objectForKey:kNumberOfTaps];
+    NSString *numberOfFingers =[[NSUserDefaults standardUserDefaults]objectForKey:kNumberOfFingers];
+    if (numberOfTapsRequired && numberOfTapsRequired.length>0) {
+        doubleFingerDoubleTap.numberOfTapsRequired=[numberOfTapsRequired integerValue];
+    }
+    else{
+        doubleFingerDoubleTap.numberOfTapsRequired=3;
+    }
+    
+    if (numberOfFingers && numberOfFingers.length>0) {
+        [doubleFingerDoubleTap setNumberOfTouchesRequired:[numberOfFingers integerValue]];
+    }
+    else {
+        [doubleFingerDoubleTap setNumberOfTouchesRequired:2];
+    }
     [imageView addGestureRecognizer:doubleFingerDoubleTap];
 }
 
@@ -961,7 +974,7 @@
         [self.bestLabel setText:[NSString stringWithFormat:@"%i",bestScore]];
     }
 }
-
+/*
 - (void)rectifyTheStateOfEffectSound{
     if (effectSoundEnable) {
         [self.effect setTitle:@"effect off" forState:UIControlStateNormal];
@@ -969,7 +982,7 @@
     else{
         [self.effect setTitle:@"effect on" forState:UIControlStateNormal];
     }
-}
+}*/
 
 - (void)didReceiveMemoryWarning
 {

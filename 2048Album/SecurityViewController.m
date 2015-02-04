@@ -10,13 +10,15 @@
 #import "PasswordInfo.h"
 
 #import "SecurityQuestionManagementViewController.h"
+#import "PasswordManagementViewController.h"
 
 @interface SecurityViewController ()<LLLockDelegate,FileManagerDelegate>{
     int nRetryTimesRemain; // 剩余几次输入机会
     
     NSMutableArray *savedPasswords;
     
-    PasswordInfo *currentPasswordInfo;
+    //PasswordInfo *currentPasswordInfo;
+    NSString *curPard;
     
     NSString *newPassword;
     
@@ -33,10 +35,14 @@
 - (id)initWithType:(LockViewType)type{
     if (self = [super init]) {
         lockViewType = type;
+        if (lockViewType!=LockViewTypeLogin) {
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            curPard = appDelegate.password;
+        }
     }
     return self;
 }
-
+/*
 - (id)initWithType:(LockViewType)type isMainPassword:(BOOL)isMainPassword{
     if (self = [super init]) {
         lockViewType = type;
@@ -44,7 +50,7 @@
     }
     return self;
 }
-
+*/
 - (IBAction)buttomButtonAction:(id)sender {
     if ([buttomButton.titleLabel.text isEqualToString:NSLocalizedString(@"ForgotPassword", nil)]) {
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -69,8 +75,9 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     LKDBHelper *globalHelper = [AppDelegate getUsingLKDBHelper];
-    
-    if(lockViewType == LockViewTypeUpdate){
+    /*
+    if(lockViewType == LockViewTypeUpdate){//修改密码
+     
         if (self.isMainPassword) {
             currentPasswordInfo = [globalHelper searchSingle:[PasswordInfo class] where:@"isMainPassword='1'" orderBy:nil];
         }
@@ -80,17 +87,24 @@
         tipLabel.text = NSLocalizedString(@"Please_input_login_password_first", nil);
         [buttomButton setTitle:@"" forState:UIControlStateNormal];
         buttomButton.enabled = NO;
-    }
-    else{// 登陆
-        savedPasswords = [globalHelper search:[PasswordInfo class] column:nil where:nil orderBy:nil offset:0 count:0];
+    }*/
+    if(lockViewType == LockViewTypeLogin){// 登陆
+        savedPasswords = [[NSMutableArray alloc]initWithArray:[globalHelper search:[PasswordInfo class] column:nil where:nil orderBy:nil offset:0 count:0]];
         tipLabel.text =NSLocalizedString(@"Please_input_correct_password", nil);
         [buttomButton setTitle:NSLocalizedString(@"ForgotPassword", nil) forState:UIControlStateNormal];
         [buttomButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     }
-    nRetryTimesRemain = LockRetryTimes;
+    else{
+        tipLabel.text = NSLocalizedString(@"Please_input_login_password_first", nil);
+        [buttomButton setTitle:@"" forState:UIControlStateNormal];
+        buttomButton.enabled = NO;
+
+    }
+    //nRetryTimesRemain = LockRetryTimes;
 }
 
 - (void)lockString:(NSString *)string{
+    NSLog(@"lockString-->%@",string);
     [indicatorView setPasswordString:string];
     if (lockViewType == LockViewTypeLogin) {
         for (PasswordInfo *tempPassword in savedPasswords) {
@@ -105,19 +119,32 @@
                 return;
             }
         }
-        nRetryTimesRemain --;
-        if (nRetryTimesRemain==0) {
+        //nRetryTimesRemain --;
+        //if (nRetryTimesRemain==0) {
             //没有次数了，这时应该消除密码，然后让用户进入密保问题选项。
+        //}
+        //else{
+            [tipLabel setText:NSLocalizedString(@"WrongPassword", nil)];
+        //}
+
+    }
+    else if (lockViewType == LockViewTypeCheck){
+        if ([string isEqualToString:curPard]) {
+            // 进入 点击手势修改界面
+            //AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            PasswordManagementViewController *passManaer =self.navigationController.viewControllers[1];
+            //PasswordManagementViewController *passManaer = [appDelegate.storyBoard instantiateViewControllerWithIdentifier:@"PasswordManagementViewController"];
+            passManaer.willModifyTapsGesrure = YES;
+            [self.navigationController popViewControllerAnimated:YES];
         }
         else{
             [tipLabel setText:NSLocalizedString(@"WrongPassword", nil)];
         }
-
     }
     else{// 修改密码
         if (!newPassword) {//修改状态，首次登陆
-            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            if ([string isEqualToString:appDelegate.password]) {//密码正确，可以修改了
+            //AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            if ([string isEqualToString:curPard]) {//密码正确，可以修改了
                 [tipLabel setText:NSLocalizedString(@"Input_a_new_password", nil)];
                 newPassword = @"";
             }
@@ -140,7 +167,7 @@
             if (string.length>=4) {
                 if ([newPassword isEqualToString:string]) {
                     [FileManager shareFileManager].delegate = self;
-                    [[FileManager shareFileManager]updateCurrentPassword:currentPasswordInfo.password toNewPassword:newPassword];
+                    [[FileManager shareFileManager]updateCurrentPassword:curPard toNewPassword:newPassword];
                 }
                 else{
                     newPassword = @"";
@@ -168,9 +195,9 @@
     
     if (success) {// show Alert and pop
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-        if (!_currentPasswordIsMain) {
+        //if (!_currentPasswordIsMain) {
             appDelegate.password = aNewPassword;
-        }
+        //}
     }
     else{
         [[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Modify_Password_Error", nil) message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]show];

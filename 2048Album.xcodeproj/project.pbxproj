@@ -32,6 +32,8 @@
 		CE145F3B19FA4AB4004253AE /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = CE145F3719FA4AB4004253AE /* MMDrawerVisualState.m */; };
 		CE15FAE71A10BBF6005C8A57 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE15FAE61A10BBF6005C8A57 /* MobileCoreServices.framework */; };
 		CE4D8D4F19F75FA300BDC6B4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4D8D4E19F75FA300BDC6B4 /* AVFoundation.framework */; };
+		CE577EEC1A80ADF000923CB0 /* TapGestureMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE577EEB1A80ADF000923CB0 /* TapGestureMaskView.m */; };
+		CE577EEE1A80AE0F00923CB0 /* TapGestureMaskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE577EED1A80AE0F00923CB0 /* TapGestureMaskView.xib */; };
 		CE7694081A0381B300DCC03D /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7694071A0381B300DCC03D /* FileManager.m */; };
 		CE76940C1A03830700DCC03D /* BestFiveImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE76940B1A03830700DCC03D /* BestFiveImage.m */; };
 		CEAA9E621A44171400C86BFD /* ThumnailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAA9E611A44171400C86BFD /* ThumnailViewController.m */; };
@@ -165,6 +167,9 @@
 		CE145F3719FA4AB4004253AE /* MMDrawerVisualState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerVisualState.m; sourceTree = "<group>"; };
 		CE15FAE61A10BBF6005C8A57 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		CE4D8D4E19F75FA300BDC6B4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CE577EEA1A80ADF000923CB0 /* TapGestureMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapGestureMaskView.h; sourceTree = "<group>"; };
+		CE577EEB1A80ADF000923CB0 /* TapGestureMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapGestureMaskView.m; sourceTree = "<group>"; };
+		CE577EED1A80AE0F00923CB0 /* TapGestureMaskView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TapGestureMaskView.xib; sourceTree = "<group>"; };
 		CE7694061A0381B300DCC03D /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
 		CE7694071A0381B300DCC03D /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
 		CE76940A1A03830700DCC03D /* BestFiveImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BestFiveImage.h; sourceTree = "<group>"; };
@@ -792,6 +797,9 @@
 				CEBBAA741A50F4100027BDBD /* BackToGameViewController.m */,
 				CEB0D42E1A76279100DFA42A /* SecurityQuestionManagementViewController.h */,
 				CEB0D42F1A76279100DFA42A /* SecurityQuestionManagementViewController.m */,
+				CE577EEA1A80ADF000923CB0 /* TapGestureMaskView.h */,
+				CE577EEB1A80ADF000923CB0 /* TapGestureMaskView.m */,
+				CE577EED1A80AE0F00923CB0 /* TapGestureMaskView.xib */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -942,6 +950,7 @@
 				CEBB11091A0A17830080775B /* tick_@2x.png in Resources */,
 				CEAAF9181A6F309100671961 /* 4-2.png in Resources */,
 				CE0191FD19EE5D1E00892177 /* InfoPlist.strings in Resources */,
+				CE577EEE1A80AE0F00923CB0 /* TapGestureMaskView.xib in Resources */,
 				CED41F6D1A19E1CF000DF1E6 /* ThumnailCollectionCell.xib in Resources */,
 				CEAAF9221A6F337D00671961 /* 5-3.png in Resources */,
 				CEAAF9271A6F417B00671961 /* 6-1.png in Resources */,
@@ -995,6 +1004,7 @@
 				CEBB10E71A09BFF20080775B /* LKDBHelper.m in Sources */,
 				CEAAC3701A4175C20001CBD3 /* AGIPCAlbumsController.m in Sources */,
 				CE145F3A19FA4AB4004253AE /* MMDrawerBarButtonItem.m in Sources */,
+				CE577EEC1A80ADF000923CB0 /* TapGestureMaskView.m in Sources */,
 				CE145F3919FA4AB4004253AE /* UIViewController+MMDrawerController.m in Sources */,
 				CEAAC3741A4175C20001CBD3 /* AGIPCGridItem.m in Sources */,
 				CEBBAA751A50F4100027BDBD /* BackToGameViewController.m in Sources */,

@@ -38,7 +38,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIFont fontWithName:@"Marker Felt" size:21],
+      [UIFont fontWithName:@"Arial" size:21],
       NSFontAttributeName, nil]];
     
 }
@@ -88,7 +88,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
     cell.textLabel.text = dataSource[indexPath.row];
-    cell.textLabel.font = [UIFont fontWithName:@"Marker Felt" size:20.0f];
+    cell.textLabel.font = [UIFont fontWithName:@"Arial" size:20.0f];
     // Configure the cell...
     
     return cell;

@@ -38,7 +38,7 @@ static NSString * const reuseIdentifier = @"Cell";
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    self.title = [NSString stringWithFormat:@"%i of %i",self.comingWith+1,self.datasourcesArray.count];
+    self.title = [NSString stringWithFormat:@"%li of %lu",self.comingWith+1,(unsigned long)self.datasourcesArray.count];
     self.automaticallyAdjustsScrollViewInsets = NO;
     //self.view.frame = [UIScreen mainScreen].bounds;
 //    if (DEBUG) {
@@ -158,7 +158,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ScanCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     //ImageCache *shareImageCache = [ImageCache shareImageCache];
-    NSFileManager *defaultM = [NSFileManager defaultManager];
+    //NSFileManager *defaultM = [NSFileManager defaultManager];
     
     id tempInfo = [self.datasourcesArray objectAtIndex:indexPath.item];
 //    BOOL exi = [defaultM fileExistsAtPath:[tempInfo imagePath]];
@@ -191,7 +191,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     int offset = scrollView.contentOffset.x;
     if (offset % (int)(mainScreenSize.width) == 0) {
-        self.title = [NSString stringWithFormat:@"%i of %i",offset/(int)(mainScreenSize.width)+1,self.datasourcesArray.count];
+        self.title = [NSString stringWithFormat:@"%i of %lu",offset/(int)(mainScreenSize.width)+1,(unsigned long)self.datasourcesArray.count];
         id info = [self.datasourcesArray objectAtIndex:offset/mainScreenSize.width];
         [addressItem setTitle:[info locationName]];
     }
@@ -312,7 +312,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)trashPhoto:(id)sender{
-    NSLog(@"%i",self.collectionView.visibleCells.count);
+    //NSLog(@"%i",self.collectionView.visibleCells.count);
     NSString *title = @"";
     if (self.showType == PickerTypePhotos) {
         title = NSLocalizedString(@"DeleteCurrentPhoto", nil);
@@ -376,12 +376,12 @@ static NSString * const reuseIdentifier = @"Cell";
         
         [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@!",NSLocalizedString(@"Done", nil)]];
         [self.datasourcesArray removeObjectAtIndex:cell.tagIndex];
-        int count = self.datasourcesArray.count;
+        int count = (int)self.datasourcesArray.count;
         if (count == 0 || count == 1) {
             self.title = [NSString stringWithFormat:@"%i of %i",count,count];
         }
         else{
-            self.title = [NSString stringWithFormat:@"%i of %i",cell.tagIndex+1,count];
+            self.title = [NSString stringWithFormat:@"%i of %i",(int)(cell.tagIndex+1),count];
         }
         
         [self.collectionView reloadData];
@@ -396,12 +396,12 @@ static NSString * const reuseIdentifier = @"Cell";
         ScanCollectionViewCell *cell = self.collectionView.visibleCells[0];
         [[HUDManager shareHUDManager]showSuccess:[NSString stringWithFormat:@"%@!",NSLocalizedString(@"Failed", nil)]];
         [self.datasourcesArray removeObjectAtIndex:cell.tagIndex];
-        int count = self.datasourcesArray.count;
+        NSInteger count = self.datasourcesArray.count;
         if (count == 0 || count == 1) {
-            self.title = [NSString stringWithFormat:@"%i of %i",count,count];
+            self.title = [NSString stringWithFormat:@"%li of %li",(long)count,(long)count];
         }
         else{
-            self.title = [NSString stringWithFormat:@"%i of %i",cell.tagIndex+1,count];
+            self.title = [NSString stringWithFormat:@"%li of %li",cell.tagIndex+1,(long)count];
         }
         [self.collectionView reloadData];
     }

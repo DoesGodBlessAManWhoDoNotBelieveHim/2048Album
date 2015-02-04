@@ -27,6 +27,9 @@
 #define kFunctionIntroduceNotification  @"functionIntroduceNotification"
 #define kVersionUpdateNotification      @"versionUpdateNotification"
 #define kAboutAlbumNotification        @"aboutAlbumNotification"
+
+#define kNumberOfFingers @"NumberOfFingers"
+#define kNumberOfTaps @"NumberOfTaps"
 /*
 typedef enum : NSUInteger {
     PickerTypePhotos,

@@ -112,3 +112,11 @@
 "Rate" = "评价";
 "CheckVersion" = "版本更新";
 "BackToGame" = "返回游戏";
+/* TapGestureView*/
+/* Sucess!It will work next time! */
+"WorkNextTime" = "成功，待下次启动程序将会起效！";
+"Reasonable"="手指数和点击数须合乎常理";
+"Numberic"="文本框中须为阿拉伯数字!";
+"ReasonableText" = "在下面对话框中填入合理范围的手势参数并保存";
+"Fingers" = "根手指";
+"Taps" = "次连续点击";

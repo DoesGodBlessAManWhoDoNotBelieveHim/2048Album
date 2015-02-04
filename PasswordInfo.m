@@ -9,7 +9,7 @@
 #import "PasswordInfo.h"
 
 @implementation PasswordInfo
-@synthesize password,question,answer,isMainPassword;
+@synthesize password,isMainPassword;
 
 + (void)initialize{
     [self removePropertyWithColumnNameArray:@[@"error"]];

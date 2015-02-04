@@ -1,10 +1,4 @@
-/*
- Localizable.strings
- 2048Album
- 
- Created by Jzhang on 15-1-13.
- Copyright (c) 2015年 hket.com. All rights reserved.
- */
+
 /*
  Localizable.strings
  2048Album
@@ -112,3 +106,12 @@
 "Rate" = "RATE";
 "CheckVersion" = "VERSION UPDATE";
 "BackToGame" = "BACK TO GAME";
+
+/* TapGestureView*/
+/* Sucess!It will work next time! */
+"WorkNextTime" = "Sucess!It will work next time!";
+"Reasonable"="number of fingers and taps must be resonnable!";
+"Numberic"="TextFiled must be Arabic numerals!";
+"ReasonableText" = "Fill in the blanks with reasonable numbers and save";
+"Fingers" = "fingers";
+"Taps" = "taps";
