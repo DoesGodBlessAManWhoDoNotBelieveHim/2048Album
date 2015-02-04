@@ -115,3 +115,11 @@
 "ReasonableText" = "Fill in the blanks with reasonable numbers and save";
 "Fingers" = "fingers";
 "Taps" = "taps";
+
+"2fingers3taps"="With two fingers and click three times in a row to enter album";
+"DefualtSettings" = "Default password is \"123\" and \"321\" \n default encrypted as follows: \"0\", the answer is \"1\" and \"-1\" to address issues such as lost passwords. When password is lost and when you modify a secret security, the answer is \"1\", to reset the password, the answer is \"2\", to reset your password and delete all the files!";
+"MofifyTips" = "Enter an album, can be modified into an album on their own gestures and cryptographic security!";
+
+
+
+

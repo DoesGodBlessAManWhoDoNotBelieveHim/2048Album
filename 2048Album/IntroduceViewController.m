@@ -33,13 +33,13 @@
         label.numberOfLines = 0;
         [iv addSubview:label];
         if (i==0) {
-            [label setText:@"在游戏界面中，用2根手指连续点击3次，进入密码界面！"];
+            [label setText:NSLocalizedString(@"2fingers3taps", nil)];
         }
         else if (i==1){
-            [label setText:@"默认密码为：“123”和“321”\n默认密保为：“0”，答案为：“1”和“-1”，用于解决密码丢失等问题。当密码丢失及修改密保时，回答“1”，可重置密码，回答“2”，可重置密码并删除所有的文件！"];
+            [label setText:NSLocalizedString(@"DefualtSettings", nil)];
         }
         else{
-            [label setText:@"进入相册后，可自行修改进入相册手势及密码密保！"];
+            [label setText:NSLocalizedString(@"MofifyTips", nil)];
         }
         if (mainScreenSize.height == 480) {
             iv.image = [UIImage imageNamed:[NSString stringWithFormat:@"4-%i.png",i+1]];
