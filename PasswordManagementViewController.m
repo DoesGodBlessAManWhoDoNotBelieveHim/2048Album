@@ -26,6 +26,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = NSLocalizedString(@"SecuritySettings", nil);
+    
+    NSLog(@"the change");
     willModifyTapsGesrure = NO;
 }
 
